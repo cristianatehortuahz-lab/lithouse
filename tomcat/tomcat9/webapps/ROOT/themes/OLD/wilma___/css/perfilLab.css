@@ -1,0 +1,141 @@
+div.organizationInfLab{
+    max-width: 1280px;
+    margin: auto;
+    position: relative;
+}
+
+section#tituloLab{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    padding:30px 40px 10px 40px;
+}
+section#tituloLab h1.nameLab{
+    color: #2485ae;
+    font-size: 40px;
+    float: left;
+    width: auto;
+    font-weight: 900;
+}
+
+section#individual-intro-Lab{
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+section#individual-infoOrga-Lab{
+    position: relative;
+    display: block;
+    height: 400px;
+    width: 400px;
+    margin: 30px;
+}
+
+img.individual-photo {
+    border: 1px solid #100f0f;
+    margin: 1px 10px 1px 3%;
+    width: 100%;
+    height: auto;
+    float: left;
+}
+
+section#information{
+    display: block;
+    position: relative;
+    width: 60%;
+    float: right;
+    margin: 30px;
+}
+
+div.overview-value {
+    text-align: justify;
+    font-size: 17px;
+    width: 100%;
+}
+
+section h3.titleKeyWord{
+    font-size: 25px;
+    padding: 10px 0 12px 0;
+    margin: 0;
+    color: #064d68;
+    font-weight: 700;
+}
+section ul.individual-keyWord{
+    display: inline-block;
+    /* list-style-type: upper-roman; */
+}
+
+li.keyWord-value{
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    border-right: 1px solid #A6B1B0;
+    float: left;
+    padding-right: 10px;
+    margin-right: 10px;
+    color: #000000c2;
+}
+
+ul.individual-emails {
+    clear: both;
+    padding-left: 0;
+    list-style: circle outside url(../../../images/emailIconSmall.gif);
+    margin-left: 20px;
+    
+}
+
+ul#individual-phone {
+    clear: both;
+    list-style: circle outside url(../../../images/phoneIconSmall.gif);
+    margin-left: 15px;
+}
+
+#additional-emails li:last-child {
+    margin-bottom: 5px;
+}
+
+section ul li strong{
+    font-size: 25px;
+    padding: 10px 0 12px 0;
+    margin: 0;
+    color: #064d68;
+    font-weight: 700;
+}
+
+section#menufiltro{
+    position: relative;
+    height: auto;
+    width: 100%;
+    display: flex;
+    /* padding-left: 200px; */
+    text-align: center;
+    /* padding-right: 200px; */
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+button.buttonAgenda{
+    position: relative;
+    display: block;
+    background-color: #2485ae;
+    font-size: 26px;
+    height: 30px;
+    width: 50%;
+    text-align: center;
+    margin: 30px auto 10px auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px 2px rgb(0, 0, 0);
+    color: #000000;
+    font-weight: bold;
+}
+
+button.buttonAgenda a{
+    position: relative;
+    display: block;
+    font-size: 26px;
+    color: #000000;
+    font-weight: 600;
+}
+

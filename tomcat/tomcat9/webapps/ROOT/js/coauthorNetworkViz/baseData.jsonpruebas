@@ -1,0 +1,65 @@
+{
+    "nodesInternal": [
+         {
+            "pubs": 2,
+            "name": "Acosta Restrepo, Patricia ",
+            "id": "patricia-acosta-restrepo",
+            "label": "Acosta Restrepo, Patricia ",
+            "group": "Facultad de Estudios Internacionales, Políticos y Urbanos"
+        },
+        {
+            "pubs": 5,
+            "name": "Botero Ospina, María Elena  ",
+            "id": "maria-elena-botero-ospina",
+            "label": "Botero Ospina, María Elena  ",
+            "group": "Facultad de Estudios Internacionales, Políticos y Urbanos"
+        }
+    ],
+
+    "edgesAll": [
+    {
+            "jointPubs": 2,
+            "id": "maria-elena-botero-ospina:patricia-acosta-restrepo",
+            "source": "maria-elena-botero-ospina",
+            "target": "patricia-acosta-restrepo"
+        },
+        {
+            "jointPubs": 1,
+            "id": "patricia-acosta-restrepo:francisco-jose-ternera-barrios",
+            "source": "patricia-acosta-restrepo",
+            "target": "francisco-jose-ternera-barrios"
+        }
+    ],
+    "edgesInternal":[
+        {
+            "jointPubs": 2,
+            "id": "maria-elena-botero-ospina:patricia-acosta-restrepo",
+            "source": "maria-elena-botero-ospina",
+            "target": "patricia-acosta-restrepo"
+        }
+    ],
+    "nodesAll":[
+        {
+            "name": "Francisco Jose Ternera Barrios",
+            "id": "francisco-jose-ternera-barrios",
+            "label": "Francisco Jose Ternera Barrios",
+            "group": "external"
+        },
+        {
+            "pubs": 2,
+            "name": "Acosta Restrepo, Patricia ",
+            "id": "patricia-acosta-restrepo",
+            "label": "Acosta Restrepo, Patricia ",
+            "group": "Facultad de Estudios Internacionales, Políticos y Urbanos"
+        },
+        {
+            "pubs": 5,
+            "name": "Botero Ospina, María Elena  ",
+            "id": "maria-elena-botero-ospina",
+            "label": "Botero Ospina, María Elena  ",
+            "group": "Facultad de Estudios Internacionales, Políticos y Urbanos"
+        }
+    ]
+
+
+}

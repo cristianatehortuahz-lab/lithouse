@@ -1,0 +1,113 @@
+<#-- $This file is distributed under the terms of the license in LICENSE$ -->
+
+<#-- Default VIVO individual profile page template (extends individual.ftl in vitro) -->
+
+<#include "individual-setup.ftl">
+<#import "lib-vivo-properties.ftl" as vp>
+
+<#assign individualImage>
+    <section id="photoOrganization">
+        <@p.image individual=individual
+        propertyGroups=propertyGroups
+        namespaces=namespaces
+        editable=editable
+        showPlaceholder="with_add_link" />
+    </section>
+</#assign>
+
+<#assign individualProductExtensionPreHeader>
+    <#include "individual-altmetric.ftl">
+    <#-- <#include "individual-plum.ftl"> -->
+</#assign>
+
+<#assign individualProductExtensionOverView>
+    <section id="individualOverview">
+        <#include "individual-overview.ftl">
+    </section>
+</#assign>
+
+<#assign individualKeyWord>
+    <section id="individualOverview">
+        <#include "individual-keyWord.ftl">
+    </section>
+</#assign>
+
+
+<#assign individualProductExtension>
+    <!--PREINDIVIDUAL OVERVIEW.FTL-->
+
+    <#--  <section id="servicioVocavulary">
+        <#include "individual-vocabularyService.ftl">
+    </section>  -->
+    <section id="paginaWEB">
+        <#include "individual-webpage.ftl">
+    </section>
+    
+    <!--postindividual overiew ftl-->
+</#assign>
+
+<#assign affiliatedResearchAreas>
+    <section id="areasInvestigacion">
+        <#include "individual-affiliated-research-areas.ftl">
+    </section>
+</#assign>
+
+<#--  APR crea assign de estadisticos  -->
+<#assign stadisticos>
+     <#-- Include for any class specific template additions -->
+    ${classSpecificExtension!}
+    ${departmentalGrantsExtension!}
+</#assign>
+
+<#if individual.conceptSubclass() >
+    <#assign overview = propertyGroups.pullProperty("http://www.w3.org/2004/02/skos/core#broader")!>
+    <#assign overview = propertyGroups.pullProperty("http://www.w3.org/2004/02/skos/core#narrower")!>
+    <#assign overview = propertyGroups.pullProperty("http://www.w3.org/2004/02/skos/core#related")!>
+
+</#if>
+
+<#--  <#assign tipoOrganization = propertyGroups.pullProperty(http://www.w3.org/2004/02/skos/core#narrower)!>  -->
+
+<#include "individual-vitro.ftl">
+
+
+<script>
+    var imagesPath = '${urls.images}';
+	var individualUri = '${individual.uri!}';
+	var individualPhoto = '${individual.thumbNail!}';
+	var exportQrCodeUrl = '${urls.base}/qrcode?uri=${individual.uri!}';
+	var baseUrl = '${urls.base}';
+    var i18nStrings = {
+        displayLess: '${i18n().display_less?js_string}',
+        displayMoreEllipsis: '${i18n().display_more_ellipsis?js_string}',
+        showMoreContent: '${i18n().show_more_content?js_string}',
+        verboseTurnOff: '${i18n().verbose_turn_off?js_string}',
+        exportQrCodes: '${i18n().export_qr_codes?js_string}',
+        researchAreaTooltipOne: '${i18n().research_area_tooltip_one?js_string}',
+        researchAreaTooltipTwo: '${i18n().research_area_tooltip_two?js_string}'
+};
+</script>
+
+<#-- Altmetrics y PlumX (Async) -->
+${scripts.add(<#--'<script async type="text/javascript" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>'-->)}
+
+${stylesheets.add('<link rel="stylesheet" href="${urls.base}/css/individual/individual.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/css/individual/individual-vivo.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/themes/wilma/css/PerfilOrganization.css" />',
+                  '<link rel="stylesheet" href="${urls.base}/js/jquery-ui/css/smoothness/jquery-ui-1.12.1.css" />')}
+
+<#-- Scripts movidos al footer para evitar render-blocking -->
+${scripts.add('<script type="text/javascript" src="${urls.base}/js/tiny_mce/tiny_mce.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/qtip/jquery.qtip.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/jquery_plugins/jquery.truncator.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/individual/individualUtils.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/individual/individualQtipBubble.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/individual/individualUriRdf.js"></script>',
+			  '<script type="text/javascript" src="${urls.base}/js/individual/moreLessController.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/jquery-ui/js/jquery-ui-1.12.1.min.js"></script>',
+              '<script type="text/javascript" src="${urls.base}/js/imageUpload/imageUploadUtils.js"></script>',
+		      '<script async type="text/javascript" src="//d39af2mgp1pqhg.cloudfront.net/widget-popup.js"></script>')}
+
+<script type="text/javascript">
+    i18n_confirmDelete = "${i18n().confirm_delete?js_string}";
+</script>

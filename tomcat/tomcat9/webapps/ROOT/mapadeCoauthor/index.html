@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<!--
+    ================================================================
+    index.html - Mapa de Coautorias (Versión Prácticas UR)
+    ================================================================
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Coautorias - Red de Investigadores</title>
+
+    <!-- Fuente Inter de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Hoja de estilos principal -->
+    <link rel="stylesheet" href="legend_styles.css?v=4.2">
+</head>
+
+<body style="overflow: hidden;">
+    <div id="coauthor-map-wrapper">
+
+    <header id="app-header">
+        <div class="logo-dot"></div>
+        <div id="app-title-group">
+            <h1>Mapa de Coautorias</h1>
+            <span class="subtitle">Red de Investigadores - Universidad del Rosario</span>
+        </div>
+
+        <div id="header-right">
+            <!-- TOGGLE DE CAPAS -->
+            <div id="layer-toggle-container" class="layer-toggle">
+                <button class="layer-btn active" data-layer="pubs" title="Ver red de coautorías académicas">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    Publicaciones
+                </button>
+                <button class="layer-btn" data-layer="grants" title="Ver red de proyectos de investigación">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Proyectos
+                </button>
+            </div>
+            <!-- SVG Gradients Definition -->
+            <svg width="0" height="0" style="position:absolute">
+                <defs>
+                    <linearGradient id="grad-sun" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad-moon" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#94a3b8;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad-help" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#f0f9ff;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#bae6fd;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <button id="btn-theme" class="hdr-btn" title="Cambiar tema">
+                <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="url(#grad-sun)" stroke="#d97706" stroke-width="1.2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="url(#grad-moon)" stroke="#64748b" stroke-width="1.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button id="btn-help" class="hdr-btn" title="Información del mapa">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="url(#grad-help)" stroke="#0284c7" stroke-width="1.2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="#0369a1" stroke-width="2"></path><line x1="12" y1="17" x2="12.01" y2="17" stroke="#0369a1" stroke-width="3" stroke-linecap="round"></line></svg>
+            </button>
+
+            <a id="btn-fullscreen" class="hdr-btn link-btn" href="/mapadeCoauthor/index.html" target="_blank">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span>Vista completa</span>
+            </a>
+
+            <button id="btn-close-detail">&#10005; Volver a la red</button>
+        </div>
+    </header>
+
+    <div id="hover-tooltip"></div>
+
+    <div id="legend-panel">
+        <div id="legend-content">
+            <span id="legend-title">Filtrar por Facultad:</span>
+            <button id="legend-reset-btn">&#x2715; Ver todas</button>
+        </div>
+        <button id="legend-toggle" aria-label="Ocultar/mostrar filtros">&#x2304; Ocultar</button>
+    </div>
+
+    <div id="controls" class="glass">
+        <div id="search-container">
+            <input type="text" id="search-input" placeholder="Buscar investigador..." autocomplete="off">
+            <button id="search-btn">&#x21B5;</button>
+            <div id="search-suggestions"></div>
+        </div>
+    </div>
+
+    <div id="node-sidebar" class="glass">
+        <div class="sidebar-header">
+            <div id="node-avatar" class="node-avatar">?</div>
+            <div class="sidebar-flex">
+                <div id="node-name" class="node-name">&mdash;</div>
+                <span id="node-faculty-badge" class="node-faculty">&mdash;</span>
+            </div>
+            <span id="sidebar-close">&#x2715;</span>
+        </div>
+
+        <div class="node-stats">
+            <div class="stat-box">
+                <div id="stat-pubs" class="stat-value">&mdash;</div>
+                <div id="label-stat-pubs" class="stat-label">Coautorias</div>
+            </div>
+            <div class="stat-box">
+                <div id="stat-connections" class="stat-value">&mdash;</div>
+                <div id="label-stat-connections" class="stat-label">Coautores</div>
+            </div>
+        </div>
+
+        <div>
+            <div class="sidebar-section-title">Top colaboradores</div>
+            <div id="coauthor-list"></div>
+        </div>
+
+        <button id="btn-ego-net">&#x1F50D; Ver red personal</button>
+
+        <div class="switch-container" id="toggle-external-wrapper">
+            <span class="toggle-label">Perfiles externos</span>
+            <label class="switch">
+                <input type="checkbox" id="toggle-external">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <div id="info-overlay" class="glass">
+        <h4>&#x1F5FA;&#xFE0F; Mapa de Coautorias</h4>
+        <hr>
+        <div class="ov-section">&#x1F4D6; Como leer el mapa</div>
+        <div class="exp-row">
+            <div class="exp-icon">
+                <svg width="32" height="32">
+                    <circle cx="16" cy="16" r="14" fill="#38bdf8" opacity="0.9" />
+                </svg>
+            </div>
+            <div class="exp-text"><strong>Tamano del nodo</strong><br>= total de coautorias</div>
+        </div>
+        <hr>
+    </div>
+
+    <div id="info-panel" class="glass">
+        <span id="info-close">&times;</span>
+        <h3 id="info-title">Detalle de Coautoria</h3>
+        <div id="info-content"></div>
+    </div>
+
+    <div id="cinematic-overlay">
+        <div class="loading-backdrop"></div>
+        <div class="loading-card">
+            <div class="orbit-container">
+                <div class="orbit orbit-1"><div class="orbit-node n1"></div></div>
+                <div class="orbit orbit-2"><div class="orbit-node n2"></div></div>
+                <div class="orbit orbit-3"><div class="orbit-node n3"></div></div>
+                <div class="orbit-center"><div class="orbit-core"></div></div>
+            </div>
+            <div class="loading-title">Mapa de Coautorias</div>
+            <div class="loading-subtitle">Entorno de Prácticas - UR</div>
+            <div class="loading-bar-wrap">
+                <div class="loading-bar-fill" id="loading-bar"></div>
+            </div>
+            <div class="loading-status" id="loading-status">Calculando posiciones...</div>
+        </div>
+    </div>
+
+    <div id="recalc-overlay">
+        <div class="recalc-spinner"></div>
+        <div class="recalc-text">Recalculando red…</div>
+    </div>
+
+    <svg id="network-graph"></svg>
+    </div>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="network_logic.js?v=4.2" charset="UTF-8"></script>
+
+</body>
+</html>

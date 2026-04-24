@@ -1,0 +1,121 @@
+/* ── LEGEND BAR — theme-aware ─────────────────────────────── */
+
+#legend-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--glass-bg, rgba(10, 17, 35, 0.88));
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--glass-border, rgba(255, 255, 255, 0.07));
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    z-index: 15;
+    transition: transform 0.3s ease;
+    min-height: 48px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#legend-panel.hidden {
+    transform: translateY(100%);
+}
+
+#legend-content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1;
+}
+
+#legend-title {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted, #64748b);
+    margin-right: 4px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Faculty pill buttons */
+.legend-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background: var(--input-bg, rgba(255, 255, 255, 0.06));
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text-subtle, #94a3b8);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.legend-btn:hover {
+    background: var(--accent-dim, rgba(255, 255, 255, 0.1));
+    color: var(--text, #e2e8f0);
+}
+
+.legend-btn.active {
+    border-color: currentColor;
+    color: var(--text, #f1f5f9);
+    background: var(--input-bg, rgba(255, 255, 255, 0.08));
+}
+
+.legend-color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Reset button */
+#legend-reset-btn {
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    background: rgba(248, 113, 113, 0.08);
+    font-size: 12px;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    color: #f87171;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+#legend-reset-btn:hover {
+    background: rgba(248, 113, 113, 0.18);
+}
+
+/* ── TOGGLE — inline inside bar, right edge ───────────── */
+#legend-toggle {
+    position: absolute;
+    right: 16px;
+    top: -28px;
+    background: var(--glass-bg, rgba(10, 17, 35, 0.88));
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.07));
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    cursor: pointer;
+    color: var(--text-muted, #64748b);
+    white-space: nowrap;
+    transition: all 0.2s;
+    line-height: 1.5;
+}
+
+#legend-toggle:hover {
+    color: var(--text, #e2e8f0);
+    background: var(--accent-dim, rgba(255, 255, 255, 0.1));
+}

@@ -1,0 +1,285 @@
+#generalDeparment{
+    position: relative;
+    width: 100%;
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+    display: inline-flex;
+}
+
+#identityDeparment{
+    position: relative;
+    width: 30%;
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+    display: inline-grid;
+    align-content: baseline;
+}
+
+#principalDeparment{
+    position: relative;
+    width: 78%;
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+    display: inline-grid;
+    align-content: baseline;
+}
+
+#keyWordsDeparment{
+    position: relative;
+    width: 100%;
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+    display: inline-flex;
+}
+
+#shortViewDeparmentPeople{
+    position: relative;
+    width: 100%;
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+    /* display: inline-flex; */
+}
+
+#ADphotoOrganization{
+    position: relative;
+    display: block;
+    width: auto;
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+}
+
+#SearchGroupDeparment{
+    position: relative;
+    display: block;
+    width: auto;
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+}
+
+#ADindividualOverview{
+    position: relative;
+    display: block;
+    width: auto;
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+}
+#ADpaginaWEB{    
+    position: relative;
+    display: block;
+    width: auto;
+    padding: 1px 1px 1px 10px;
+    margin: 1px 1px 1px 10px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+}
+
+#ADkeywords{
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+}
+#ADindividualPersonAdmin{
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+    display: inline-table;
+}
+#ADindividualPersonProfesor{
+    padding: 1px 1px 1px 1px;
+    margin: 1px 1px 1px 1px;
+}
+
+#principalDeparment h1 {
+    color: #5E6363;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#ADindividualPersonAdmin li.col-lg-3, li.col-md-4, li.col-sm-6{
+    padding: 1px 1px 1px 1px;
+    margin: 0px 0px 10px 0px;
+    overflow: hidden;
+    list-style-type: none;
+    display: inline-flex;
+}
+
+#ADindividualPersonProfesor li.col-lg-2, li.col-md-3, li.col-sm-4{
+    padding: 1px 1px 1px 1px;
+    margin: 0px 0px 10px 0px;
+    overflow: hidden;
+    list-style-type: none;
+    display: inline-flex;
+}
+
+#ADindividualPersonAdmin .card-img-top, #ADindividualPersonProfesor .card-img-top{
+    width: 130px !important;
+    margin: auto;
+    height: 140px;
+    border: 3px solid #d4bab8a1;
+    display: flex;
+    
+}
+
+#ADindividualPersonAdmin li div div.card-body, #ADindividualPersonProfesor li div div.card-body{
+    font-size: 10px;
+    padding: 0% 1% 0% 1%;
+    margin: 0% 1% 0% 1%;
+    color: #0039AD;
+}
+
+#ADindividualPersonAdmin li div div h5.card-title, #ADindividualPersonProfesor li div div h5.card-title{
+    font-size: 10px;
+    padding: 0% 1% 0% 1%;
+    margin: 0% 1% 0% 1%;
+    color: #0039AD;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#ADindividualPersonAdmin li div div h5.card-title a, #ADindividualPersonProfesor li div div h5.card-title a{
+    font-size: 10px;
+    padding: 0% 1% 0% 1%;
+    margin: 0% 1% 0% 1%;
+    color: #0039AD;
+    padding: 1% 1% 1% 1%;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.organizationInf hr{
+    margin-top: 13px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 4px solid #145da0;
+}
+
+
+div.vcard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+}
+
+div.vcard {
+  background-color: #e9f1ff;
+  border: 1px solid #c6d7f0;
+  border-radius: 10px;
+  width: 170px;
+  height: 55px;
+  padding: 12px;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+ul#individual-hasResearchGroup{
+    display: flow-root;
+}
+
+
+ul#individual-hasResearchGroup a.raLink{
+    font-size: 11px;
+     text-align: center;
+    line-height: 1;
+}
+
+
+#SearchGroupDeparment li.col-lg-2, li.col-md-3, li.col-sm-4 {
+    padding: 1px 1px 1px 1px;
+    margin: 0px 0px 5px 0px;
+    overflow: hidden;
+    list-style-type: none;
+}
+
+
+#ADpaginaWEB ul.individual-urls {
+    list-style: none; /* Quitar estilo por defecto */
+}
+
+#ADpaginaWEB ul.individual-urls li::before{
+    content: "";
+    display: inline-block;
+    background-image: url(../../../images/individual/logoWEB.png);
+    background-size: 16px 16px; /* Cambia el tamaño aquí */
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin: 1px 2px 1px 1px;
+}
+
+#ADContact ul {
+    list-style: none; /* Quitar estilo por defecto */
+}
+
+#ADContact ul li::before{
+    content: "";
+    display: inline-block;
+    background-image: url(../../../images/individual/iconoPhone.png);
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 23px;
+    vertical-align: middle;
+    margin: 1px 1px 1px 16px;
+}
+
+#ADContact ul li{
+    display: inline-flex;
+}
+
+#ADContact ul li h1{
+    display: contents;
+}
+
+div.imagenes{
+    display: block;
+}
+
+
+/* Scroll de perfiles de investigadores en deparment */
+
+.scroll-container {
+    max-height: 57vh; /* o un valor fijo como 600px */
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    border: 2px solid #ccc;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+/* Estilo de cada card item */
+.scroll-container li {
+    list-style: none;
+    scroll-snap-align: start;
+}
+
+/* Opcional: mejora visual del scroll */
+.scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #999;
+    border-radius: 5px;
+}
+
+div.imagenes a img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 145px;
+    top: 119px;
+}
+
+div.imagenes a img:hover{
+    width: 25px;
+    height: 25px;
+}

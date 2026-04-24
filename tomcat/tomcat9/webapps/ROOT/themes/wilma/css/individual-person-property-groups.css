@@ -1,0 +1,100 @@
+/* Estilo general del contenedor */
+.individual-objects {
+    margin-top: 20px;
+}
+
+/* ----------------------------------------------------
+   Estilos para los tabs de la izquierda
+   ---------------------------------------------------- */
+.nav-pills {
+   /*  border: 1px solid #e0e0e0; 
+    border-radius: 8px; */
+    padding: 10px;
+    background-color: #f8f9fa; 
+    display: block !important;
+}
+
+.nav-pills > li {
+    margin-bottom: 5px; 
+    display: flex !important;
+}
+
+.nav-pills > li > a {
+    /* Estilo del botón */
+    border-radius: 6px;
+    background-color: #ffffff; 
+    color: #495057; 
+    font-weight: 500;
+    transition: all 0.3s ease-in-out; 
+    border: 1px solid #dee2e6; 
+    text-align: left; 
+}
+
+/* Efecto hover y focus */
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus {
+    background-color: #e9ecef; 
+    color: #007bff; 
+    border-color: #007bff; 
+    transform: translateX(5px); 
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    background-color: #007bff; 
+    color: #fff; 
+    border-color: #007bff; 
+   /*  pointer-events: none;  */
+    transform: none; 
+}
+
+.nav-pills > li > a,
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
+.nav-pills > li > a:active {
+    padding: 0.5rem 1rem;
+    min-width: 90%;
+
+}
+
+.row.individual-objects {
+    background: transparent !important;
+}
+
+ul.nav.nav-pills.nav-stacked {
+    background: transparent !important;
+}
+
+/* ----------------------------------------------------
+   Estilos para el contenido de la derecha
+   ---------------------------------------------------- */
+.tab-content {
+    /* Contenedor del contenido */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+}
+
+h2[pgroup="tabs"] {
+    color: #343a40;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-pane > div {
+    /* Puedes agregar estilos adicionales aquí si es necesario,
+       por ejemplo, para separar mejor cada sección de propiedades. */
+    margin-bottom: 20px;
+}
+
+div.tab-content h3 {
+    text-transform: lowercase;
+}
+
+div.tab-content h3::first-letter {
+    text-transform: capitalize;
+}

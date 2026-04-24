@@ -1,0 +1,309 @@
+/* ==========================================================
+   Estilos generales para la sección organizationInf
+   ========================================================== */
+.organizationInf {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    max-width: 1280px; /* controla el ancho máximo */
+    padding: 0 15px;
+    margin: auto;
+}
+
+/* ==========================================================
+   Títulos y cabecera
+   ========================================================== */
+.organizationInf #title {
+    /* border-bottom: 2px solid #ddd; */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    margin-top: 0px;
+}
+
+.organizationInf #title h1,
+.organizationInf #title h2 {
+    color: #5E6363;
+    font-size: 35px;
+    font-weight: bold;
+    /* text-transform: lowercase; */
+    text-align: center;
+}
+
+.organizationInf #title h1::first-letter {
+    text-transform: uppercase; /* Solo la primera letra se vuelve mayúscula */
+}
+
+.organizationInf #title p {
+    margin: 5px 0 0 0;
+}
+
+.organizationInf #title a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.organizationInf #title a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================
+   Sección principal (individual-intro)
+   ========================================================== */
+.organizationInf #individual-intro {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    flex-direction: row;
+    width:100%;
+}
+
+div.headOrganization{
+    background: #04bfab15;
+    padding: 30px 0px 10px 1px;
+    margin-bottom: 20px;
+}
+
+/* ---- Bloque de contacto/foto ---- */
+.organizationInf #share-contact {
+    flex: 1 1 300px;
+    /* border: 1px solid #eee; */
+    padding: 0px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    width:25%;
+}
+
+#share-contact section#photoOrganization{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#individual-intro section#share-contact{
+ /*--   margin: auto; --*/
+}
+
+.organizationInf #share-contact img.individual-photo {
+    width: 250px;
+    height: auto;
+    border:none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#individual-infoOrga section#areasInvestigacion{
+    margin-bottom: 10px;
+}
+
+#areasInvestigacion ul#individual-hasResearchArea{
+    margin: 10px 20px 1px 20px ;
+    padding: 1px 1px 1px 1px;
+}
+
+img.individual-photo {
+    width: 90%;
+    margin: auto;
+    
+}
+/* ---- Bloque de información principal ---- */
+.organizationInf #individual-infoOrga {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 959px) {
+    .organizationInf #individual-infoOrga {
+        width: 100%;
+    }
+    
+}
+
+#individualOverview div.overview-value{
+    text-align: justify;
+    display: block;
+    font-size: 14px;
+    margin: 1px 20px 1px 20px;
+}
+
+#individualOverview div.overview-value ul {
+    list-style-type: square;
+}
+
+#areasInvestigacion h2#facultyResearchAreas {
+    clear: left;
+    padding-bottom: 3px;
+    padding-top: 2px;
+    margin: 1px 1px 1px 42px;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: lowercase;
+}
+#areasInvestigacion h2#facultyResearchAreas::first-letter {
+    text-transform: uppercase;
+}
+
+/* ==========================================================
+   Columna lateral izquierda
+   ========================================================== */
+/* ----------------------------------------------------
+   Estilos para los tabs de la izquierda
+   ---------------------------------------------------- */
+.nav-pills {
+   /*  border: 1px solid #e0e0e0; 
+    border-radius: 8px; */
+    padding: 10px;
+    background-color: #f8f9fa; 
+    display: block !important;
+}
+
+.nav-pills > li {
+    margin-bottom: 5px; 
+    display: flex !important;
+}
+
+.nav-pills > li > a {
+    /* Estilo del botón */
+    border-radius: 6px;
+    background-color: #ffffff; 
+    color: #495057; 
+    font-weight: 500;
+    transition: all 0.3s ease-in-out; 
+    border: 1px solid #dee2e6; 
+    text-align: left; 
+}
+
+/* Efecto hover y focus */
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus {
+    background-color: #e9ecef; 
+    color: #007bff; 
+    border-color: #007bff; 
+    transform: translateX(5px); 
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    background-color: #007bff; 
+    color: #fff; 
+    border-color: #007bff; 
+   /*  pointer-events: none;  */
+    transform: none; 
+}
+
+.nav-pills > li > a,
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus,
+.nav-pills > li > a:active {
+    padding: 0.5rem 1rem;
+    min-width: 90%;
+
+}
+
+.row.individual-objects {
+    background: transparent !important;
+}
+
+ul.nav.nav-pills.nav-stacked {
+    background: transparent !important;
+}
+
+/* ----------------------------------------------------
+   Estilos para el contenido de la derecha
+   ---------------------------------------------------- */
+.tab-content {
+    /* Contenedor del contenido */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+}
+
+h2[pgroup="tabs"] {
+    color: #343a40;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-pane > div {
+    /* Puedes agregar estilos adicionales aquí si es necesario,
+       por ejemplo, para separar mejor cada sección de propiedades. */
+    margin-bottom: 20px;
+}
+
+/* Article */
+
+
+
+
+article.property {
+    width: auto !important;
+}
+
+article.property h3 {
+    background: none !important;
+    font-size: 14px !important;
+    color: #000000a3 !important;
+    padding: 10px 0 10px 2px !important;
+    margin: 0 !important;
+    text-transform: lowercase;
+    font-weight: 600;
+}
+article.property h3::first-letter {
+    text-transform: capitalize;
+}
+
+
+
+ul.property-list{
+    padding: 0 0 0 0 !important;
+}
+
+article ul.property-list {
+    padding: 0 2px !important;
+}
+
+article.property ul.property-list li {
+    padding: 8px 0 8px 0 !important;
+    font-size: 1rem;
+    /* text-transform: lowercase; */
+    text-align: justify;
+}
+
+article.property ul.property-list li::first-letter {
+    text-transform: capitalize;
+}
+
+article.property {
+    width: 93%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    border: none !important;
+}
+
+
+ul.nav-pills .nav-link {
+    font-size: 14px;
+}
+
+
+section#ADindividualPersonAdmin div.directivos{
+    display: flex !important;
+    justify-content: space-around;
+}
+
+/* ==========================================================
+   Accesibilidad y limpieza
+   ========================================================== */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+[role="region"] {
+    outline: none; /* se puede personalizar con focus si se desea */
+}

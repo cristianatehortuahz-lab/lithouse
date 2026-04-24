@@ -1,0 +1,12 @@
+.search-box { /*parent element*/
+  position: relative;
+}
+#autoComplete_list {
+  position: absolute;
+  margin:0;
+}
+#selected-value > span {
+  display: inline-block;
+  margin-right: 20px;
+  cursor: pointer;
+}

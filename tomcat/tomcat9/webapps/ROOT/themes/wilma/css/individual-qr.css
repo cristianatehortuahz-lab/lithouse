@@ -1,0 +1,8 @@
+section textarea {
+    width: 100% !important;
+    font-size: 1rem;
+}
+
+.row.align-items-center.g-3 {
+    padding: 1rem;
+}

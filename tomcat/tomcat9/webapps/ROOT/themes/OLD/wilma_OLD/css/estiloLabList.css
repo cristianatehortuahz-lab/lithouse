@@ -1,0 +1,84 @@
+/* Contenedor de búsqueda */
+#search-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#searchInput {
+    width: 80%;
+    max-width: 600px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.25);
+}
+
+ul#IDCard {
+    gap: 2rem;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 18rem;
+    height: 440px;
+    margin-bottom: 20px;
+}
+
+img.card-img-top {
+    height: 190px !important;
+}
+
+
+
+.card-title {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+h5.card-title a {
+    font-size: 0.9 !important;
+    white-space: normal !important;
+    font-weight: bold;
+    color: #2485ae;
+}
+
+.card-summary {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000;
+    text-align: justify !important;
+    line-height: normal;
+    margin: 0.4rem 0;
+}
+
+span.card-program a {
+    font-size: 0.8rem !important;
+    color: #2485ae;
+}
+
+span#capacity, span#physicalLocation, span#sede {
+    padding: 0;
+    margin: 0;
+    line-height: 1.5em;
+}
+
+form#search-form {
+	    display: none;
+    }

@@ -1,0 +1,115 @@
+body *{
+  box-sizing: border-box;
+}
+#network-viz-main {
+  width: 1280px;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+#projection {
+  width: 802px;
+  height: 752px;
+  border: 1px solid black;
+  position: relative;
+}
+
+#network-viz-main svg {
+  background: #fff;
+}
+#network-viz-main .node:hover {
+  cursor: pointer;
+  opacity: .9;
+  color: black;
+}
+#network-viz-main .node text:first-of-type {
+  stroke-width  0;
+}
+#network-viz-main .node:hover text:first-child {
+  fill: black;
+}
+
+#projection-sidebar {
+  width: 370px;
+}
+#network-viz-main .search-box {
+  width: 100%;
+}
+#network-viz-main .legend-box {
+  width: 100%;
+  border: 1px solid silver;
+  padding: 30px;
+}
+
+#network-viz-main line:hover {
+  stroke: black;
+  cursor: pointer;
+}
+
+#network-viz-main #js-coPubs {
+  background: #fff;
+  position: absolute;
+  border: 1px solid black;
+  padding: 20px;
+  z-index: 2;
+  width: 500px;
+}
+
+#network-viz-main #js-coPubs > a {
+  margin-top: 14px;
+  float: right;
+  color: #165485;
+  text-decoration: none;
+}
+#network-viz-main #js-coPubs > a:hover {
+  text-decoration: underline;
+}
+#network-viz-main .show { display: block; }
+#network-viz-main .hide { display: none; }
+#network-viz-main .active-node {
+  transition: fill .5s;
+  fill: #333;
+}
+#network-viz-main .active-link {
+  transition: stroke-opacity .5s, stroke .5s;
+  stroke: #333;
+  stroke-opacity: 1;
+}
+
+#network-viz-main label {
+  cursor: pointer;
+  display: block;
+}
+
+#network-viz-main .legend-entry {
+  display: flex;
+  margin-bottom: 14px;
+}
+#network-viz-main .legend-entry .circle {
+  min-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  float: left;
+  margin-right: 20px;
+}
+#network-viz-main .legend-entry p {
+  margin: 0;
+}
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+#node-graph-filters {
+  margin-bottom: 12px;
+}
+#node-graph-filters p,
+#node-graph-filters label {
+  margin: 0;
+}
+#selected-node-name {
+  font-weight: bold;
+}

@@ -1,0 +1,1480 @@
+const scriptEl = document.querySelector('#coauthor-network-viz-script')
+const urlsBase = scriptEl.getAttribute('data-urlsBase')
+const serviceURL = scriptEl.getAttribute('data-serviceURL')
+const sampleCoPubsServiceURL = scriptEl.getAttribute('data-sampleCoPubsServiceURL')
+
+var dataStructure = {}
+
+/*************** HELPER FUNCTIONS **************/
+function rToJson(r) {
+    if (r.ok) return r.json()
+    else throw new Error('Network response was not ok.');
+}
+
+function setTransform(el, elTransformArg) {
+    var transfromString = ("rotate(" + elTransformArg.rot + "deg ) scale(" +
+        elTransformArg.sca + ") skewX(" + elTransformArg.skx + "deg ) skewY(" +
+        elTransformArg.sky + "deg )");
+
+    // now attach that variable to each prefixed style
+    element.style.webkitTransform = transfromString;
+    element.style.MozTransform = transfromString;
+    element.style.msTransform = transfromString;
+    element.style.OTransform = transfromString;
+    element.style.transform = transfromString;
+}
+/*************** END HELPER FUNCTIONS **************/
+
+
+// **** FUNCTIONS FOR VISUALLY MOVING ELEMENT ***/
+function getElemTopLeft(el) {
+    document.getElementById("prof-graph").style.display = "none";
+    let pos = el.getBoundingClientRect()
+    return {
+        top: pos.top + window.scrollY + 1,
+        left: pos.left + window.scrollX + 1,
+    }
+}
+
+
+function getHAndW(el) {
+    let rect = el.getBoundingClientRect()
+    return {
+        h: rect.height,
+        w: rect.width
+    }
+}
+
+function setPosition(el, data) {
+    let { pos, zIndex, left, top } = data
+    if (pos) el.style.position = pos
+    if (zIndex) el.style.zIndex = zIndex
+    if (left || left == 0 || left == '0') el.style.left = left + 'px'
+    if (top || top == 0 || top == '0') el.style.top = top + 'px'
+}
+
+function setPositionG1(el, data) {
+    let { pos, zIndex, left, top } = data
+    if (pos) el.style.position = 10
+    if (zIndex) el.style.zIndex = 9
+    if (left || left == 0 || left == '0') el.style.left = '100px'
+    if (top || top == 0 || top == '0') el.style.top = '100px'
+}
+
+function styleTransition(el, value) {
+    el.style.MozTransition = value
+    el.style.WebkitTransition = value
+    el.style.transition = value
+}
+
+function animatePosition(el, data, duration) {
+    if (duration) {
+        var initTransStyle = el.style.transition
+        let transitionValue = `left ${duration}s, top ${duration}s`
+        styleTransition(el, transitionValue)
+        if (data.start) setPosition(el, data.start)
+    }
+
+    setTimeout(function() { setPosition(el, data.end) }, 100)
+
+    if (duration) {
+        setTimeout(function() { styleTransition(el, initTransStyle) }, duration * 1000)
+    }
+}
+
+function manageSimpleInsert(el) {
+    el.style.position = 'relative'
+    el.style.zIndex = 1;
+    el.style.left = 0
+    el.style.top = 0;
+}
+
+function elToInitialTemplate(el, initialEl) {
+    el.parentElement.insertBefore(initialEl, el)
+    el.remove()
+}
+
+
+
+/**** fns particular for the case; depends on variables from context  ***/
+function showSelectedTerm(str) {
+    // let searchBox = document.querySelector(".search-box")
+    let searchBox = document.querySelector(".reset-option")
+    searchBox.insertAdjacentHTML('afterbegin', `<h4 id='selected-value'><span id='remove-graph-selection'>&#x274C;</span><span id="selected-node-name">${str}</span></h4>`)
+}
+
+function removeSelectedTerm() {
+    document.querySelector('#selected-value').remove()
+
+}
+
+function resetSelection(initG2El) {
+    return function(e) {
+        labelFlag = "home";
+        e.preventDefault()
+        transitionBackToG1(initG2El)
+            // document.getElementById("projection").style.display = "block";
+        document.getElementById("prof-graph").style.display = "unset";
+        document.getElementById("network-graph-box").style.height = "revert";
+        removeSelectedTerm()
+        console.log(labelFlag)
+    }
+}
+/**** end fns particular for the case  ***/
+
+// **** END FUNCTIONS FOR VISUALLY MOVING ELEMENT ***/
+
+
+
+/***** GRAPH RELATED VARS AND FUNCTIONS *****/
+
+// tooltip controller
+var ttpJustDisplayed = false;
+
+// graph related vars
+var projectionIsG1 = false;
+var curGraphFilter = 'intNetwork' // || allNetwork
+    // --> is set to 'intNetwork' value when transitionToG2 OR updateSelection
+    // --> is unset when transitionBackToG1 and RESET to 'intNetwork' value
+
+var profs = []
+let groupsColor = {
+    // "other": "gray", //"#c3b0e6",
+	"Facultad de Creación":'#68ffe3',
+	"Facultad de Emprendimiento": '#5b27c0',
+    //"School of Medicine and Health Sciences": 'red',
+	"Escuela de Medicina y Ciencias de la Salud": 'red',
+    //"Faculty of Natural Sciences": 'green',
+	"Escuela de Ciencias e Ingeniería": 'green',
+    //"School of Engineering, Science and Technology": "#5b27c0",
+	//"Escuela de Ingeniería, Ciencia y Tecnología": "#5b27c0",
+    //"School of Human Sciences": 'blue',
+	"Escuela de Ciencias Humanas": 'blue',
+    //"Faculty of Economics": '#f1dd05',
+    "Facultad de Economía": '#f1dd05',
+    //"Faculty of Law": '#e695a3',
+	"Facultad de Jurisprudencia": '#e695a3',
+    //"School of Management and Business": '#3ac9de',
+	"Escuela de Administración": '#3ac9de',
+    //"Faculty of International, Political and Urban Studies": "#ff9800",
+	"Facultad de Estudios Internacionales, Políticos y Urbanos": '#ff9800',
+    "other": "#da0921",
+    "Centro de Recursos para el Aprendizaje y la Investigación": '#da0921',
+    "Interdisciplinary Study Group on Conflict and Peace (JANUS)": 'purple',
+    "Dirección de Investigación e Innovación": '#da0921',
+    "Dirección de Marketing": '#da0921',
+    "Dirección Académica": '#da0921',
+    //"Faculty of Creative Studies":'#68ffe3',
+    "external": "silver",
+	"Decanatura del Medio Universitario":'purple'
+}
+var graphW = 800,
+    graphH = 750
+    // graphH = 750
+
+
+
+let networkIntData = {} // {nodes: [], links: []}
+let networkAllData = {} // {nodes: [], links: []}
+
+var currentNodeExternalsId = []
+var domS = {
+    g1Box: '.network-graph-box',
+    g2Box: '.detail-network-graph-box',
+    projBox: '#projection',
+    legend: '.legend-box',
+    nodeGraphFilters: '#node-graph-filters',
+    gShowAll: '#show-all-nodes',
+    gShowInt: '#show-internal-nodes'
+}
+var createdNodeNetworks = new Map()
+
+var nodeWeightScale = d3.scaleLinear() //node Scale (will become node circle radius)
+    .domain([0, 100])
+    .range([10, 50]);
+
+var linkWeightScale = d3.scaleLinear() // link scale (will become link's stroke-width)
+    .domain([0, 100])
+    .range([3, 20]);
+
+
+function prepData(data) { // fn to prepare final data for network graph
+    var graph = {
+        nodes: [],
+        links: []
+    }
+    console.log(graph);
+
+    data.nodes.forEach(node => {
+        node.weight = node.pubs ? nodeWeightScale(node.pubs) : 10
+        node.color = groupsColor[node.group]
+        let graphNode = Object.create(JSON.parse(JSON.stringify(node)))
+        graph.nodes.push(graphNode)
+
+    })
+
+    data.links.forEach(link => {
+        let graphLink = Object.create(JSON.parse(JSON.stringify(link)))
+        graph.links.push(graphLink)
+    })
+
+    return graph
+}
+
+
+
+
+function drag(simulation) {
+
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+
+    return d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
+}
+
+function adaptCoordsForScaledBox(coords, nonScaledElHAndW, scaledElHAndW) {
+    // move to left a distance equal with number of pixels from left border of scaled version of element to left border of unscaled version element
+    // same with top
+    let initW = nonScaledElHAndW.w
+    let initH = nonScaledElHAndW.h
+    let scaledW = scaledElHAndW.w
+    let scaledH = scaledElHAndW.h
+
+    coords.left = coords.left - (initW / 2 - scaledW / 2)
+    coords.top = coords.top - (initH / 2 - scaledH / 2)
+    return coords
+}
+
+function transitionToG2(attrs) {
+    document.getElementById("prof-graph").style.display = "none";
+
+
+    let { d, node, initScale } = attrs
+    var initG2El = document.querySelector(domS.g2Box).cloneNode(true)
+    let innerBox = d3.select(`${domS.g1Box} svg .graph-wrapper`)
+
+    let svg = d3.select(domS.g1Box + ' svg')
+
+    // let zoomBehavior = d3.zoom().scaleExtent([.5, 8])
+    // zoomBehavior.on("zoom", zoomed(innerBox, 1))
+    // svg.transition().duration(500)
+    //     .call(zoomBehavior.transform, center(d, 3.2))
+    // svg.call(zoomBehavior)
+
+    node.select('rect')
+        .transition().delay(600)
+        .attr('class', 'active-node')
+        .attr('data-nodeid', d.id)
+
+    let clickedNodeData = d
+
+    let linkBox = svg.select('.link-box')
+        //linkBox.selectAll('line')
+    linkBox.selectAll('path')
+        .filter((d, i, g) => {
+            return (d.target.id === clickedNodeData.id || d.source.id === clickedNodeData.id)
+        })
+        .each((d, i, g) => {
+            d3.select(g[i]).transition().delay(600)
+                .attr('class', 'active-link')
+        })
+
+    let scaleAmount = 0.46
+    let svgBox = svg.node().parentElement
+    let initSvgBoxHAndW = getHAndW(svgBox)
+    let scaledSvgBoxHAndW = {
+        w: initSvgBoxHAndW.w * scaleAmount,
+        h: initSvgBoxHAndW.h * scaleAmount
+    }
+    let topLeftCoordsAtStart = getElemTopLeft(svgBox) // we have to compute this before scaling
+        // if we want append the scaled element as direct child of dom and to position it absolute in its current position,
+        // we have to use the coords the element had before being scaled
+
+    // svg.transition()
+    //     .delay(1000)
+    //     .select((d, i, g) => g[i].parentElement)
+    //     .style('transform', `matrix(${scaleAmount}, 0, 0, ${scaleAmount}, 0,0)`)
+    // svg.transition()
+    //     .delay(1100).style('border', '2px solid black')
+    let legend = document.querySelector(domS.legend)
+
+    function animSelectedNode(nodeDatum) {
+        if (typeof Object.assign != 'function') {
+            Object.assign = function(target, varArgs) { // .length of function is 2
+                'use strict';
+                if (target == null) { // TypeError if undefined or null
+                    throw new TypeError('Cannot convert undefined or null to object');
+                }
+
+                var to = Object(target);
+
+                for (var index = 1; index < arguments.length; index++) {
+                    var nextSource = arguments[index];
+
+                    if (nextSource != null) { // Skip over if undefined or null
+                        for (var nextKey in nextSource) {
+                            // Avoid bugs when hasOwnProperty is shadowed
+                            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                                to[nextKey] = nextSource[nextKey];
+                            }
+                        }
+                    }
+                }
+                return to;
+            };
+        }
+        /* visually position it (absolute) in same position, but direct child of Body */
+        let startPos = Object.assign({ pos: 'absolute', zIndex: 9 }, topLeftCoordsAtStart)
+        setPosition(svgBox, startPos) // even if elem is scaled, it needs same top-left as if it wouldn't be
+        document.body.appendChild(svgBox)
+
+
+        /*** DOM/view effects before moving scaled-down graph ***/
+        showSelectedTerm(nodeDatum.name) //node.name
+        let gFiltersBox = document.querySelector(domS.nodeGraphFilters)
+        gFiltersBox.classList.remove('hide')
+
+        let explanation = document.querySelector("#explanation")
+        explanation.classList.add('hide')
+            //g1Box.classList.add('hide')
+
+        // remove selection and reset graphs to initial
+        document.querySelector('#remove-graph-selection').addEventListener('click', resetSelection(initG2El, initScale))
+            /*** END DOM/view effects before moving scaled-down graph ***/
+
+        /* visually position it (absolute) in target position - still direct child of body */
+        let coordsForAbsolutePosEnd = adaptCoordsForScaledBox(getElemTopLeft(legend), initSvgBoxHAndW, scaledSvgBoxHAndW)
+
+        let animateLegendData = {
+            start: {
+                left: 0,
+                top: 0,
+            },
+            end: {
+                pos: 'relative',
+                left: 0,
+                top: scaledSvgBoxHAndW.h + 20
+            }
+        };
+        // animatePosition(legend, animateLegendData, .3)
+        setTimeout(function() {
+            // animatePosition(svgBox, { end: coordsForAbsolutePosEnd }, .5)
+        }, 100)
+
+        // insert
+        setTimeout(function() {
+            legend.parentElement.insertBefore(svgBox, legend)
+            manageSimpleInsert(svgBox)
+            manageSimpleInsert(legend)
+            manageInsertSvgInSidebar(svgBox)
+        }, 1400)
+
+
+        function manageInsertSvgInSidebar() {
+            svgBox.style.transformOrigin = 'left top'
+            svgBox.style.marginBottom = -(initSvgBoxHAndW.h - scaledSvgBoxHAndW.h) + 'px'
+            svgBox.style.height = scaledSvgBoxHAndW.h
+        }
+    }
+
+    setTimeout(function() {
+        animSelectedNode(d)
+    }, 1300)
+
+
+    setTimeout(function() {
+        let g2Parent = document.querySelector(domS.g2Box)
+        g2Parent.classList.remove('hide')
+
+        projectionIsG1 = false;
+
+        genNodeNetwork(networkAllData)
+
+    }, 2000)
+} // end transitionToG2()
+
+
+
+function nodeClickAction(opt) {
+    return function(d, i, g) {
+        if (!projectionIsG1) return;
+
+        let clickedNode = d3.select(g[i])
+
+        let attrs = {
+            d: d,
+            node: clickedNode,
+            initScale: opt.initScale
+        }
+        opt.behaveAtSelect(attrs)
+    }
+}
+
+
+/** zoom related functions **/
+var initScale = .75
+
+function zoomed(el, scale) {
+    return function() {
+        el.attr("transform", d3.event.transform.scale(scale))
+    }
+}
+
+function center(d, scale) {
+    return d3.zoomIdentity.scale(scale).translate(-d.x, -d.y)
+}
+/** END zoom related functions **/
+
+
+function chart(opt) {
+    /* chart needed data
+      network data (object with nodes arr and links arr)
+      graph width
+      graph height
+      projectedGraph: 'g1' || 'g2'
+      // complete!
+    */
+    console.log(opt.data);
+    console.log(opt.projectedGraph);
+    if (opt.projectedGraph == 'g1') { projectionIsG1 = true } else { projectionIsG1 = false }
+
+    var links = opt.data.links
+    var nodes = opt.data.nodes
+
+    if (opt.projectedGraph == 'g1') {
+        var simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).strength(.2))
+            .force("charge", d3.forceManyBody().strength(-200))
+            .force("x", d3.forceX())
+            .force("y", d3.forceY())
+            .tick(d => {
+                console.log(d)
+                if (d.group == 'external') {
+                    return 20
+                }
+                return 10
+            })
+        const { width, height } = opt
+
+
+        var svg = d3.select(opt.domSelectors.svg)
+            // .attr('height', height)
+            // .attr('width', width)
+            .attr('height', "auto")
+            .attr('width', 800)
+            .attr('viewBox', [-width / 1.1, -height / 1.5, width * 1.7, height * 2.2])
+
+
+        const innerBox = svg.append("g")
+            .attr('class', 'graph-wrapper')
+
+        const linkBox = innerBox.append("g")
+            .attr('class', 'link-box')
+            .attr("stroke", "#999")
+            .attr("stroke-opacity", 0.6)
+
+        const link = linkBox
+            .selectAll("path")
+            .data(links)
+            .enter()
+            .append("path")
+            .attr('class', 'link')
+            .attr("stroke", "#aaa")
+            .attr("stroke-width", function(d, i) {
+                return linkWeightScale(d.jointPubs);
+            })
+            .attr("fill", "none")
+            .on('click', setTtpBox)
+
+        // opt.rootId === d.id
+        const node = innerBox.append("g")
+            .attr('class', 'node-box')
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 1.5)
+            .selectAll('g')
+            .data(nodes)
+            .enter()
+            .append('g')
+            .attr('class', 'node')
+            .attr("stroke", function(d) {
+                if (opt.rootId === d.id) {
+                    return "black"
+                } else {
+                    return "#fff"
+                }
+            })
+            .attr("opacity", function(d) {
+                if (projectionIsG1 != true) {
+                    if (opt.rootId === d.id) {
+                        return "1"
+                    } else {
+                        return "0.9"
+                    }
+                } else {
+                    return "1"
+                }
+            })
+            // .attr('id', d => d.id)
+
+        var node_scale = d3.scaleLinear()
+            .domain([0, d3.max(nodes, function(d) {
+                return d.pubs;
+            })])
+            .range([20, 60]);
+
+
+        node.call(drag(simulation));
+
+        // node.append('circle')
+        //     .attr("r", d => d.weight)
+        //     .attr("fill", d => d.color)
+
+        node.append('rect')
+            // .attr("width", d => d.weight * 2)
+            // .attr("height", d => d.weight * 2)
+            .attr("width", function(d, i) {
+                // console.log(node_scale(d.pubs))
+                return node_scale(d.pubs);
+            })
+            .attr("height", function(d, i) {
+                // console.log(node_scale(d.pubs))
+                return node_scale(d.pubs);
+            })
+            .attr("rx", 5)
+            .attr("x", -5)
+            .attr("y", function(d, i) {
+                return -d.weight * 1.2
+            })
+            .attr("fill", d => d.color)
+
+        node.append('text')
+            .text(d => d.label)
+            .attr('stroke-width', function(d) {
+                if (opt.rootId === d.id) {
+                    return .5
+                } else {
+                    return .1
+                }
+            })
+            .attr('font-size', function(d) {
+                if (opt.rootId === d.id) {
+                    return 15
+                } else {
+                    return 12
+                }
+            })
+            .attr('text-anchor', 'middle')
+            .attr('dy', d => -d.weight * 1.2)
+
+        node.append('text')
+            .text(d => {
+                if (projectionIsG1) return d.pubs
+                    // if (!projectionIsG1 && opt.rootId === d.id) return d.pubs
+                else return d.pubs
+            })
+            .attr('stroke-width', .1)
+            .attr('fill', '#fff')
+            // .attr('fill', 'black')
+            .attr('font-size', d => {
+                if (d.weight >= 30) {
+                    return 30
+                } else {
+                    return 15
+                }
+            })
+            .attr('text-anchor', d => {
+                if (d.weight >= 14) {
+                    return 'middle'
+                } else {
+                    return 'end'
+                }
+            })
+            // .attr('dy', d => d.weight * 1.35)
+            .attr('dy', d => 1)
+            .attr('dx', d => {
+                if (d.weight >= 18) {
+                    return d.weight / 1.5
+                } else if (d.weight >= 13) {
+                    return d.weight / 2.2
+                } else {
+                    return d.weight / 1
+                }
+            })
+
+        node.append("title")
+            .text(d => {
+                if (d.pubs > 1) {
+                    //return d.label + d.pubs
+                    return d.label + ", " + d.pubs + " publicaciones en coautorías";
+                } else {
+                    return d.label + ", " + d.pubs + " publicación en coautoría";
+                }
+            });
+
+        node.on('click', nodeClickAction(opt))
+
+
+        let zoomBehavior = d3.zoom().scaleExtent([.5, 8])
+        zoomBehavior.on("zoom", zoomed(innerBox, opt.initScale));
+        svg.call(zoomBehavior)
+        innerBox.attr("transform", "translate(0,0) scale(" + opt.initScale + ")")
+
+        function updateNetwork() {
+            /*link
+              .attr("x1", d => d.source.x)
+              .attr("y1", d => d.source.y)
+              .attr("x2", d => d.target.x)
+              .attr("y2", d => d.target.y)*/
+
+            link.attr("d", function(d) {
+                var dx = d.target.x - d.source.x + 50,
+                    dy = d.target.y - d.source.y - 20,
+                    dr = Math.sqrt(dx * dx * 0.5 + dy * dy * 0.5);
+                return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+            });
+
+            node.attr('transform', d => `translate(${d.x}, ${d.y})`)
+        }
+        simulation.on("tick", updateNetwork);
+
+    } else if (opt.projectedGraph == 'g2') {
+        console.log("dataStructure")
+        console.log(dataStructure);
+        var simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(links).id(d => d.id).strength(.2))
+            .force("charge", d3.forceManyBody().strength(-200))
+            .force("x", d3.forceX())
+            .force("y", d3.forceY())
+            .tick(d => {
+                console.log(d)
+                if (d.group == 'external') {
+                    return 20
+                }
+                return 10
+            })
+        const { width, height } = opt
+
+
+        var svg = d3.select(opt.domSelectors.svg)
+            .attr('height', "auto")
+            .attr('width', 800)
+            .attr('viewBox', [-width / 1.1, -height / 1.5, width * 1.7, height * 2.2])
+
+
+        const innerBox = svg.append("g")
+            .attr('class', 'graph-wrapper')
+
+        const linkBox = innerBox.append("g")
+            .attr('class', 'link-box')
+            .attr("stroke", "#999")
+            .attr("stroke-opacity", 0.6)
+
+        const link = linkBox
+            .selectAll("path")
+            .data(links)
+            .enter()
+            .append("path")
+            .attr('class', 'link')
+            .attr("stroke", "#aaa")
+            .attr("stroke-width", function(d, i) {
+                return linkWeightScale(d.jointPubs);
+            })
+            .attr("fill", "none")
+            .on('click', setTtpBox)
+
+        // opt.rootId === d.id
+        const node = innerBox.append("g")
+            .attr('class', 'node-box')
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 1.5)
+            .selectAll('g')
+            .data(nodes)
+            .enter()
+            .append('g')
+            .attr('class', 'node')
+            .attr("stroke", function(d) {
+                if (opt.rootId === d.id) {
+                    return "black"
+                } else {
+                    return "#fff"
+                }
+            })
+            .attr("opacity", function(d) {
+                if (projectionIsG1 != true) {
+                    if (opt.rootId === d.id) {
+                        return "1"
+                    } else {
+                        return "0.7"
+                    }
+                } else {
+                    return "1"
+                }
+            })
+            // .attr('id', d => d.id)
+
+        var node_scale_subgraph = d3.scaleLinear()
+            .domain([0, d3.max(nodes, function(d) {
+                return d.pubs;
+            })])
+            .range([20, 50]);
+
+        node.call(drag(simulation));
+
+
+        node.append('rect')
+            .attr("width", function(d, i) {
+                return 40
+
+                if (d.pubs) {
+                    return node_scale_subgraph(d.pubs)
+                }
+                return 20
+                return node_scale_subgraph(d.pubs);
+            })
+            .attr("height", function(d, i) {
+                return 40
+
+                if (d.pubs) {
+                    return node_scale_subgraph(d.pubs)
+                }
+                return 20
+                return node_scale_subgraph(d.pubs);
+            })
+            .attr("rx", 5)
+            .attr("x", function(d, i) {
+                return -5
+                if (d.weight >= 100) {
+                    return -d.weight * .25
+                } else if (d.weight >= 50) {
+                    return -d.weight / 11
+                }
+                return -d.weight / 1.35
+            })
+            .attr("y", function(d, i) {
+                return -10
+                if (d.weight >= 100) {
+                    return -d.weight * 0.15
+                } else if (d.weight >= 50) {
+                    return -d.weight / 11
+                }
+                return -d.weight * .5
+            })
+            .attr("fill", d => d.color)
+
+        node.append('text')
+            .text(d => d.label)
+            .attr('stroke-width', function(d) {
+                if (opt.rootId === d.id) {
+                    return .5
+                } else {
+                    return .1
+                }
+            })
+            .attr('font-size', function(d) {
+                if (opt.rootId === d.id) {
+                    return 15
+                } else {
+                    return 12
+                }
+            })
+            .attr('text-anchor', 'middle')
+            .attr('dy', d => {
+                return -12
+                return -d.weight * 1.2
+            })
+
+        node.append('text')
+            .text(d => {
+                return d.pubs
+            })
+            .attr('stroke-width', .1)
+            .attr('fill', '#fff')
+            // .attr('fill', 'black')
+            .attr('font-size', d => {
+                return 15
+                    // if (d.weight >= 30) {
+                    //     return 20
+                    // } else {
+                    //     return 15
+                    // }
+            })
+            .attr('text-anchor', d => {
+                if (d.weight >= 14) {
+                    return 'middle'
+                } else {
+                    return 'middle'
+                        // return 'end'
+                }
+            })
+            .attr("dominant-baseline", "central")
+            // .attr('dy', d => 12)
+            .attr('dy', d => {
+                return 10
+                    // if (d.weight >= 100) {
+                    //     return d.weight / 5.3
+                    // } else if (d.weight >= 50) {
+                    //     return d.weight / 2.5
+                    // } else {
+                    //     return d.weight / 2.5
+                    // }
+            })
+            .attr('dx', d => {
+                return 10
+                    // if (d.weight >= 100) {
+                    //     return d.weight / 5.3
+                    // } else if (d.weight >= 25) {
+                    //     return d.weight / 2.5
+                    // } else {
+                    //     return d.weight / 2.5
+                    // }
+            })
+            .attr('class', d => d.weight)
+
+        node.append("title")
+            .text(d => {
+                if (d.pubs > 1) {
+                    //return d.label + d.pubs
+                    return d.label + ", " + d.pubs + " publicaciones en coautorías";
+                } else {
+                    return d.label + ", " + d.pubs + " publicación en coautoría";
+                }
+            });
+
+        node.on('click', nodeClickAction(opt))
+
+        node.on('click', function(d) {
+            let currNode = { name: d.label, id: d.id }
+                // updateSelectionSecondGraph(currNode)
+                // updateSelectionG2(currNode)
+                // resetSelection();
+            updateSelection(currNode)
+        })
+        let zoomBehavior = d3.zoom().scaleExtent([.5, 8])
+        zoomBehavior.on("zoom", zoomed(innerBox, opt.initScale));
+        svg.call(zoomBehavior)
+        innerBox.attr("transform", "translate(0,0) scale(" + opt.initScale + ")")
+
+        function updateNetwork() {
+
+            link.attr("d", function(d) {
+                var dx = d.target.x - d.source.x + 50,
+                    dy = d.target.y - d.source.y - 20,
+                    dr = Math.sqrt(dx * dx * 0.5 + dy * dy * 0.5);
+                return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+            });
+
+            node.attr('transform', d => `translate(${d.x}, ${d.y})`)
+        }
+        simulation.on("tick", updateNetwork);
+
+    }
+
+
+}
+
+
+function transitionBackToG1(initG2El, initScale) {
+
+    if (projectionIsG1) return
+
+    let g1 = document.querySelector(domS.g1Box) // add also id to this div, to be specific
+    let g2 = document.querySelector(domS.g2Box) // add also id to this div, to be specific
+    let projZone = document.querySelector(domS.projBox)
+
+    let g1HAndW = getHAndW(g1.querySelector('svg'))
+    let g1LeftTop = getElemTopLeft(g1)
+    let g1AbsPosLeftTop = adaptCoordsForScaledBox(g1LeftTop, { w: graphW, h: graphH }, g1HAndW)
+    let g1AbsStartPosData = {
+        left: g1LeftTop.left,
+        top: g1LeftTop.top,
+        pos: 'absolute',
+        zIndex: 9
+    }
+    let g1Sibling = g1.nextElementSibling
+    if (g1Sibling) {
+        setPosition(g1Sibling, { top: g1HAndW.h + 20, pos: 'relative' })
+
+        g1.style.transition = 'top 1s'
+    }
+
+    g1.style.transformOrigin = 'center center'
+    setPositionG1(g1, g1AbsStartPosData)
+    setPosition(g1, g1AbsStartPosData)
+    document.body.appendChild(g1)
+
+    //effectsBeforeMoveSvgToProjectionZone
+    elToInitialTemplate(g2, initG2El)
+
+    // MoveSvgToProjectionZone
+    animatePosition(g1, { end: getElemTopLeft(projZone) }, 1)
+    if (g1Sibling) animatePosition(g1Sibling, { end: { top: 0 } }, 1)
+
+    // effectsAfterMoveSvgToProjectionZone
+    setTimeout(() => {
+        revertGraphSelectionEffects(g1)
+    }, 1000)
+
+    setTimeout(() => {
+        // insertbackindom
+        projZone.appendChild(g1)
+        manageSimpleInsert(g1)
+        manageInsertG1InProjZone(g1)
+    }, 1400)
+
+    function manageInsertG1InProjZone(g) {
+        g.style.transition = ''
+        g.style.marginBottom = ''
+        g.style.transformOrigin = ''
+        g.style.transform = ''
+    }
+
+    function revertGraphSelectionEffects(el, initScale) {
+        let svg = d3.select(el).select('svg')
+
+        let activeNode = svg.select('.active-node')
+        let activeLinks = svg.selectAll('.active-link')
+        activeNode.classed('active-node', false)
+        activeLinks.classed('active-link', false)
+
+        svg.style('border', null)
+
+        d3.select(el).transition().duration(300).style('transform', 'scale(1)')
+    }
+
+    projectionIsG1 = true
+    let gFiltersBox = document.querySelector(domS.nodeGraphFilters)
+    resetGFilter()
+    gFiltersBox.classList.add('hide')
+    let explanation = document.querySelector("#explanation")
+    explanation.classList.remove('hide')
+
+}
+
+function resetGFilter() {
+    document.querySelector(domS.gShowInt).checked = true
+    curGraphFilter = 'intNetwork'
+}
+
+function updateSelectionG1(node) {
+    // remove active class from up-to-now-active node and links
+    let curActiveNode = d3.select(getActiveNode())
+        .classed('active-node', false)
+
+    let curActiveLinks = d3.selectAll('#prof-graph .active-link')
+    curActiveLinks.each((d, i, g) => {
+        d3.select(g[i])
+            .classed('active-link', false)
+    })
+
+    // start indentifying and setting active the new selected node and its links
+    let nodeTarget = d3.selectAll('#prof-graph .node')
+        .filter(d => d.id === node.id)
+
+    // bring node in center of box
+    let svg = d3.select('#prof-graph')
+    let innerBox = d3.select('#prof-graph .graph-wrapper')
+
+    let nodeData = nodeTarget.datum()
+
+    let zoomBehavior = d3.zoom().scaleExtent([.5, 8])
+        // zoomBehavior.on("zoom", zoomed(innerBox, 1))
+
+    // svg.call(zoomBehavior)
+    svg.transition().duration(500).call(zoomBehavior.transform, center(nodeData, 3.2))
+
+
+    // set class active for node and its links
+    let nodeCircle = nodeTarget.select('rect')
+        .transition().delay(550)
+        .attr('class', 'active-node')
+        .attr('data-nodeid', node.id)
+
+
+    let links = d3.selectAll('#prof-graph .link-box > line').filter(d => (d.source.id === node.id || d.target.id === node.id))
+    links.transition().delay(600).each((d, i, g) => d3.select(g[i]).attr('class', 'active-link'))
+}
+
+function updateSelectionG2(node, initData) {
+    // remove existing graph-wrapper, from inside g2 svg
+    let graphToRemove = document.querySelector(`${domS.g2Box} .graph-wrapper`)
+    graphToRemove.remove()
+
+    genNodeNetwork(networkAllData)
+    resetGFilter()
+
+    updateSelectedTerm(node.name)
+}
+
+function updateSelectedTerm(str) {
+    document.querySelector('#selected-node-name').innerText = str
+}
+
+function updateSelection(node) {
+    if (projectionIsG1) return
+
+    // return if selected already active node
+    let curActiveNode = d3.select('#prof-graph [data-nodeid]')
+    if (curActiveNode.size() && curActiveNode.id === node.id) return
+
+
+    updateSelectionG1(node)
+    setTimeout(function() { updateSelectionG2(node, networkIntData) }, 1000)
+
+}
+
+
+
+
+function getActiveNode() {
+    let activeNode = document.querySelector(`${domS.g1Box} svg .active-node`)
+    return activeNode
+}
+
+function getActiveNodeId() {
+    let activeNode = getActiveNode()
+    let nodeId = activeNode.getAttribute('data-nodeid')
+    return nodeId
+}
+
+function getInternals(nodeData) {
+    intNodesData = { nodes: [], links: [] }
+
+    intNodesData.nodes = filterInternalNodes(nodeData.nodes)
+
+    intNodesId = mapNodesId(intNodesData.nodes)
+
+    intNodesData.links = filterLinksByNodeId(nodeData.links, nodesId)
+
+    return intNodesData
+}
+
+function mapNodesIdFromLinks(links, id) {
+    return links.map(link => {
+        if (link.source === id) return link.target
+        else return link.source
+    })
+}
+
+function mapNodesIdFromNodes(nodes) {
+    return nodes.map(node => node.id)
+}
+
+function mapNodesFromIds(nodesId, nodesDataCollection) {
+    return nodesId.map(id => nodesDataCollection.find(node => node.id === id))
+}
+
+function filterLinksByNodeId(links, id) {
+    console.log("links")
+    links.forEach(link => {
+
+        if (link.source == 'fatima-martinez-gutierrez' || link.target == 'fatima-martinez-gutierrez') {
+            console.log(link.source + ":" + link.target)
+        }
+
+    });
+    // links.filter(link => {
+    //     console.log(link.source + ":" + link.target)
+    //         // if (link.source == id || link.target == id) { console.log(link.source) }
+    // })
+    return links.filter(link => (link.source === id || link.target === id))
+}
+
+function filterInternalNodes(nodes) {
+    return nodes.filter(node => (node.group && node.group !== 'external'))
+}
+
+function filterExternalNodes(nodes) {
+    return nodes.filter(node => (!node.group || node.group == 'external'))
+}
+
+function getAllNodeData(nodeId, data) {
+    let nodeData = { nodes: [], links: [] }
+    nodeData.links = filterLinksByNodeId(data.links, nodeId)
+        // console.log("nodedata.links")
+        // console.log(nodeData.links)
+    let idsToFindNodes = mapNodesIdFromLinks(nodeData.links, nodeId)
+    idsToFindNodes.push(nodeId)
+    nodeData.nodes = mapNodesFromIds(idsToFindNodes, data.nodes)
+
+    return nodeData
+}
+
+
+function getExternalNodesId(nodes) {
+    let extNodes = filterExternalNodes(nodes)
+    let extNodesId = mapNodesIdFromNodes(extNodes)
+    return extNodesId
+}
+
+function getInternalNodesId(nodes) {
+    let intNodes = filterInternalNodes(nodes)
+    let nodesId = mapNodesIdFromNodes(intNodes)
+    return nodesId
+}
+
+function hideNodes(nodesId, targetSelection) {
+    let nodes = d3.selectAll(`${targetSelection} .node`)
+        .filter(d => nodesId.includes(d.id))
+        .style('display', 'none')
+
+    d3.selectAll(`${targetSelection} .link`)
+        .filter(d => (nodesId.includes(d.source.id) || nodesId.includes(d.target.id)))
+        .style('display', 'none')
+}
+
+function showNodes(nodesId, targetSelection) {
+    d3.selectAll(`${targetSelection} .node`)
+        .filter(d => nodesId.includes(d.id))
+        .style('display', 'block')
+        .attr("opacity", "0.3")
+    d3.selectAll(`${targetSelection} .link`)
+        .filter(d => (nodesId.includes(d.source.id) || nodesId.includes(d.target.id)))
+        .style('display', 'block')
+        .attr("opacity", "0.3")
+
+}
+
+
+function genNodeNetwork(networkData) {
+    console.log("networkData")
+    console.log(networkData);
+
+    let newData = fetch(serviceURL)
+        .catch(err => console.error('request failed: ', err))
+        .then(rToJson)
+        .then(makeGraphData);
+
+    console.log("newData");
+    console.log(newData);
+    // setTimeout(function() { newData() }, 100)
+
+    let nodeId = getActiveNodeId()
+    let nodeData;
+    if (createdNodeNetworks.has(nodeId)) nodeData = createdNodeNetworks.get(nodeId)
+    else {
+        networkData = dataStructure.networkAll
+        nodeData = getAllNodeData(nodeId, networkData)
+            // nodeData = getAllNodeData(nodeId, dataStructure.networkAll)
+        createdNodeNetworks.set(nodeId, nodeData)
+    }
+    console.log("nodeData")
+    console.log(nodeData);
+    let g2Settings = {
+        data: nodeData,
+        width: graphW,
+        height: graphH,
+        initScale: 1.6,
+        projectedGraph: 'g2',
+        rootId: nodeId,
+        domSelectors: {
+            svg: '#prof-detail-graph'
+        }
+    }
+
+    chart(g2Settings)
+    currentNodeExternalsId = getExternalNodesId(nodeData.nodes)
+    hideNodes(currentNodeExternalsId, domS.g2Box)
+
+}
+
+function makeProfList(rData) {
+    console.log("rData");
+    console.log(rData.nodesInternal);
+
+    profs = rData.nodesInternal.forEach(node => {
+        // console.log(node);
+        profs.push({ name: node.name, id: node.id })
+    })
+    console.log("profs");
+    console.log(profs);
+
+    return rData
+}
+
+function makeProfListSecondGraph(rData) {
+    console.log("rData");
+    console.log(rData.nodesInternal);
+
+    profs = rData.nodesInternal.forEach(node => profs.push({ name: node.name, id: node.id }))
+    console.log("profs");
+    console.log(profs);
+
+    return rData
+}
+
+function makeGraphData(rData) {
+    let data = {
+        int: {
+            nodes: rData.nodesInternal,
+            links: rData.edgesInternal
+        },
+        all: {
+            nodes: rData.nodesAll,
+            links: rData.edgesAll
+        }
+    }
+    let gData = {
+        networkInt: prepData(data.int),
+        networkAll: prepData(data.all)
+    }
+
+    networkIntData = gData.networkInt
+    networkAllData = gData.networkAll
+
+    dataStructure = gData
+
+    return gData
+}
+
+function newData() {
+    console.log("new fetch!")
+    fetch(serviceURL)
+        .catch(err => console.error('request failed: ', err))
+        .then(rToJson)
+        .then(makeProfList)
+        .then(makeGraphData)
+}
+
+function startG1(gData) {
+    let g1Settings = {
+        data: networkIntData,
+        width: graphW,
+        height: graphH,
+        behaveAtSelect: transitionToG2,
+        projectedGraph: 'g1',
+        initScale: initScale,
+        domSelectors: {
+            svg: '#prof-graph',
+            svg2: '#prof-detail-graph',
+            legend: '.legend-box'
+        }
+    }
+    chart(g1Settings)
+}
+
+function createLegend(groupsData) {
+    let target = document.querySelector(domS.legend)
+    let colors = Object.values(groupsData)
+    let groupNames = Object.keys(groupsData)
+    let vicerrectoria = false;
+    let tpl = groupNames.map((name, i) => {
+        if (name == "other") {
+            vicerrectoria = true;
+            return `<div class='legend-entry' ><p class='circle' data-toggle='tooltip' title='Vicerrectoría Académica'  style='background:${colors[i]}'></p><p></p></div>`
+        } else if (name == "Dirección de Marketing") {
+            return `<div class='legend-entry' ><p class='circle' data-toggle='tooltip' title='Rectoría'  style='background:${colors[i]}'></p><p></p></div>`
+        } else if (name == "external") {
+            // return `<div class='legend-entry'><p class='circle' style='background:${colors[i]}'></p><p>External</p></div>`
+            return ``
+        } else if (name != "Centro de Recursos para el Aprendizaje y la Investigación" && name != "Dirección de Investigación e Innovación" && name != "Dirección Académica" && name != "Dirección de Marketing") {
+            return `<div class='legend-entry' ><p class='circle' data-toggle='tooltip' title='${name}'  style='background:${colors[i]}'></p><p></p></div>`
+        }
+    })
+    target.innerHTML = tpl.join('')
+}
+
+/*** TTP RELATED FNS ***/
+function setTtpBox(d, i, g) {
+
+    let networkBox = d3.select(domS.projBox)
+    let ttpBox = d3.select('#js-coPubs') // replace coPubs with other id that signals a type of 'tooltip' - yep, id, as there should not be more tooltips of same type visible at same time
+
+    // stop setTtpBox execution from re-displaying same tooltip
+    if (ttpBox.size() && ttpBox.classed('show')) return;
+
+    if (!ttpBox.size()) {
+        ttpBox = networkBox.append('div')
+            .attr('id', 'js-coPubs')
+            .classed('ttp', true)
+            .classed('show', true)
+        ttpJustDisplayed = true;
+    } else {
+        ttpBox.html('').classed('hide', false).classed('show', true)
+        ttpJustDisplayed = true;
+    }
+
+    positionTtp(networkBox.node(), ttpBox)
+
+    let viewAllStr = d.jointPubs > 1 ? `View All ${d.jointPubs} publications` : 'View this publication'
+    let url = sampleCoPubsServiceURL + d.id
+
+    fetchCopubsSample(url)
+        .then((r) => {
+            let tpl = makeTpl(r, viewAllStr, d)
+            return tpl
+        })
+        .then((tpl) => {
+            ttpBox.html(tpl)
+        })
+}
+
+function makeTpl(obj, str, linkData) {
+    let tpl = '<ul class="short-list">'
+    let keys = Object.keys(obj)
+    console.log(obj)
+    keys.forEach(key => tpl += `<li><a target="_blank" href='${urlsBase}/display/${key}'>${obj[key].title}</a></li>`)
+    tpl += '</ul>'
+    tpl += `<a target="_blank" href='${urlsBase}/copublicationsList?coauthors=${linkData.id}'>${str}</a>`
+
+    return tpl
+}
+
+function fetchCopubsSample(fetchUrl) {
+    return fetch(fetchUrl)
+        .catch(err => console.error('request failed: ', err))
+        .then(rToJson)
+}
+
+
+
+function positionTtp(relativeNode, ttpSelection) {
+    let mousePos = d3.mouse(relativeNode)
+
+    ttpSelection.style('left', mousePos[0] + 30 + 'px')
+        .style('top', mousePos[1] - 30 + 'px')
+}
+
+// fn to hide ttpBox if clicked anywhere outside it
+// ideally should be adapted for an entire project, to check and dismiss any type of tooltip/popup/overlayer
+function hideTtpIfVisible(e) {
+    if (ttpJustDisplayed) {
+        e.preventDefault()
+        ttpJustDisplayed = false
+        return;
+    }
+
+    let ttp = document.querySelector('.ttp.show')
+    if (!ttp) return
+
+    if (ttp.contains(e.target)) return
+
+    // else
+    ttp.classList.remove('show')
+    ttp.classList.add('hide')
+}
+/*** END TTP RELATED FNS ***/
+
+/******* END GRAPH RELATED VARS and FUNCTIONS ********/
+
+function loadAutocomplete() {
+
+    const autoCompletejs = new autoComplete({
+        data: {
+            src: profs,
+            key: ["name"],
+            cache: true
+        },
+        placeHolder: "Find a researcher",
+        selector: "#autoComplete",
+        threshold: 0,
+        debounce: 0,
+        // searchEngine: "strict",
+        highlight: true,
+        maxResults: 7,
+        resultsList: {
+            render: true,
+            container: source => {
+                source.setAttribute("id", "autoComplete_list");
+            },
+            destination: document.querySelector("#autoComplete"),
+            position: "afterend",
+            element: "ul"
+        },
+        resultItem: {
+            content: (data, source) => {
+                source.innerHTML = data.match;
+            },
+            element: "li"
+        },
+        // noResults: () => {
+
+        // },
+        onSelection: feedback => {
+
+            const selection = feedback.selection.value;
+            let select = document.querySelector("#autoComplete")
+            select.value = ''
+
+            // changed selection
+            if (!projectionIsG1) {
+                updateSelection(selection)
+                return
+            }
+            // end changed selection
+
+
+            // transition to g2
+            let nodes = d3.selectAll(domS.g1Box + ' .node')
+            let node = nodes.filter((d, i, g) => d.id === selection.id)
+
+            let attrs = {
+                d: node.datum(),
+                node: node,
+                scale: .75
+            }
+            transitionToG2(attrs)
+                // end transition to g2
+
+
+        }
+    });
+
+}
+
+function render() {
+    document.addEventListener('click', hideTtpIfVisible)
+
+    let allNetworkTrigger = document.querySelector(domS.gShowAll)
+    let internalNetworkTrigger = document.querySelector(domS.gShowInt)
+
+    var initProjectionBox = document.querySelector(domS.projBox).cloneNode(true)
+
+    allNetworkTrigger.addEventListener('click', (e) => {
+        if (curGraphFilter == 'allNetwork') return
+
+        showNodes(currentNodeExternalsId, domS.g2Box)
+        curGraphFilter = 'allNetwork'
+    })
+
+    internalNetworkTrigger.addEventListener('click', e => {
+        if (curGraphFilter == 'intNetwork') return
+
+        hideNodes(currentNodeExternalsId, domS.g2Box)
+        curGraphFilter = 'intNetwork'
+    })
+
+
+    createLegend(groupsColor)
+
+    fetch(serviceURL)
+        .catch(err => console.error('request failed: ', err))
+        .then(rToJson)
+        .then(makeProfList)
+        .then(makeGraphData)
+        .then(startG1)
+        .then(loadAutocomplete())
+
+
+
+}
+
+
+document.addEventListener('DOMContentLoaded', render, false);
+// document.addEventListener('DOMContentLoaded', +, false);

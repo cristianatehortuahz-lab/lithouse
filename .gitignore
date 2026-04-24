@@ -1,0 +1,37 @@
+# Ignorar todo por defecto (Whitelist approach)
+*
+!*/
+!.gitignore
+!iniciar_vivo.bat
+!package.json
+!package-lock.json
+!auto_lighthouse.js
+
+# Carpetas de desarrollo en Tomcat
+!tomcat/
+!tomcat/tomcat9/
+!tomcat/tomcat9/webapps/
+!tomcat/tomcat9/webapps/ROOT/
+!tomcat/tomcat9/webapps/ROOT/themes/
+!tomcat/tomcat9/webapps/ROOT/themes/**
+!tomcat/tomcat9/webapps/ROOT/templates/
+!tomcat/tomcat9/webapps/ROOT/templates/**
+!tomcat/tomcat9/webapps/ROOT/js/
+!tomcat/tomcat9/webapps/ROOT/js/**
+!tomcat/tomcat9/webapps/ROOT/css/
+!tomcat/tomcat9/webapps/ROOT/css/**
+!tomcat/tomcat9/webapps/ROOT/mapadeCoauthor/
+!tomcat/tomcat9/webapps/ROOT/mapadeCoauthor/**
+
+# Configuración de VIVO
+!HUBvivo115/
+!HUBvivo115/runtime.properties
+
+# Ignorar archivos pesados específicos dentro de las carpetas permitidas si los hay
+**/*.zip
+**/*.tar.gz
+**/*.log
+tomcat/tomcat9/logs/**
+tomcat/tomcat9/temp/**
+tomcat/tomcat9/work/**
+node_modules/**

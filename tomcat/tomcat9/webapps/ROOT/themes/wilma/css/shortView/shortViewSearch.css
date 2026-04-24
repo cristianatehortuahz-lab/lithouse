@@ -1,0 +1,99 @@
+ div#programIndividual{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 1px;
+    margin: 5px 1px;
+    justify-content: center;
+    width: 100%;
+}
+
+ div#organizationIndividual{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 1px;
+    margin: 5px 1px;
+    justify-content: center;
+    width: 100%;
+}
+
+
+ul.searchhits-Lab  div.individual{
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 1px;
+    margin: 5px 1px;
+    justify-content: center;
+}
+
+div.org-desc h1 a, div.org-desc h2 a, div.org-desc h3 a, div#programIndividual h3 a {
+    font-size: 18px;
+    font-weight: 500;
+    color: #24568E;
+    text-decoration: none;
+}
+
+div.org-desc h1 a:hover, div.org-desc h2 a:hover, div.org-desc h3 a:hover, div#programIndividual h3 a:hover {
+    text-decoration: underline;
+}
+
+.advancedSearchForm .form-button, .searchhits li {
+    padding: 0;
+    padding-bottom: unset;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+div#programDescription{
+    
+    padding: 1px 1px 1px 10px;
+}
+
+ul.js-search-hits{
+    padding-left: 0px;
+}
+
+div.org-img{
+    position: relative;
+    width: 16%;
+    height: auto;
+    padding: 1px 1px 1px 1px;
+    margin: auto;
+}
+
+div.org-img img{
+    width: 100%;
+    height: auto;
+    border-radius: 10%;
+    position: relative;
+    padding: 3px;
+}
+
+div.org-desc{
+    width: 80%;
+    height: auto;
+    padding: 1px;
+    margin:auto 5px;
+}
+
+
+
+
+.searchhits li .shortview_person-img {
+    margin-right: 0;
+
+}
+
+  
+
+.contentsBrowseGroup-top-box {
+    width: 90%;
+    margin: auto;
+}
+
+.shortview_person-data div.person-body{
+    flex-direction: column;
+}

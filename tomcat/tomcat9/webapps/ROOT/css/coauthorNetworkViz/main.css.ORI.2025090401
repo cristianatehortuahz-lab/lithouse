@@ -1,0 +1,306 @@
+body * {
+    box-sizing: border-box;
+}
+
+#network-viz-main {
+    width: 100%;
+    max-width: 1280px;
+    margin-bottom: 60px;
+    /* display: flex; */
+    align-items: start;
+    justify-content: space-between;
+}
+
+#projection {
+    background: #fff;
+    width: 100%;
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+#network-viz-main svg {
+    background: #fff;
+    width: 100%;
+    height: auto;
+}
+
+#network-viz-main .node:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    color: black;
+}
+
+#network-viz-main .node text:first-of-type {
+    /* stroke-width: 0; */
+}
+
+#network-viz-main .node:hover text:first-child {
+    fill: black;
+}
+
+#projection-sidebar {
+    width: 100%;
+}
+
+#network-viz-main .legend-box:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+#network-viz-main .search-box {
+    width: 100%;
+    border: silver 1px solid;
+    background: #c0c0c045;
+    display: block;
+}
+
+#network-viz-main .search-box p {
+    text-align: center;
+    margin-right: 5em;
+}
+
+#network-viz-main .reset-inputs {
+    padding: 1em;
+}
+
+.reset-container {
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+    float: right;
+}
+
+.reset-container-message {
+    max-width: 500px;
+}
+
+#network-viz-main .legend-box {
+    /* width: 100%; */
+    border: 1px solid silver;
+    padding: 30px;
+    margin-bottom: 30px;
+    display: flex;
+}
+
+#network-viz-main line:hover {
+    stroke: black;
+    cursor: pointer;
+}
+
+#network-viz-main #js-coPubs {
+    background: #fff;
+    position: absolute;
+    border: 1px solid black;
+    padding: 20px;
+    z-index: 2;
+    width: 500px;
+}
+
+#network-viz-main #js-coPubs>a {
+    margin-top: 14px;
+    float: right;
+    color: #165485;
+    text-decoration: none;
+}
+
+#network-viz-main #js-coPubs>a:hover {
+    text-decoration: underline;
+}
+
+#network-viz-main .show {
+    display: block;
+}
+
+#network-viz-main .hide {
+    display: none;
+}
+
+#network-viz-main .active-node {
+    transition: fill 0.5s;
+    fill: #333;
+}
+
+#network-viz-main .active-link {
+    transition: stroke-opacity 0.5s, stroke 0.5s;
+    stroke: #333;
+    stroke-opacity: 1;
+}
+
+#network-viz-main label {
+    cursor: pointer;
+    display: block;
+}
+
+#network-viz-main .legend-entry {
+    /* width: 49.9%;
+  float: left; */
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#network-viz-main .legend-entry .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% - 15px);
+}
+
+#network-viz-main .legend-entry p {
+    margin: 0;
+    width: calc(100% - 40px);
+    margin-left: 40px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+#node-graph-filters {
+    margin-bottom: 30px;
+}
+
+#node-graph-filters p,
+#node-graph-filters label {
+    margin: 0;
+}
+
+#selected-node-name {
+    font-weight: bold;
+}
+
+@media screen and (max-width: 400px) {
+    #network-viz-main .legend-box {
+        padding: 10px;
+    }
+    #network-viz-main .legend-box {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    #network-viz-main {
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+    #projection-sidebar {
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    #network-viz-main .legend-box {
+        padding: 22px;
+    }
+    #network-viz-main .legend-entry {
+        margin-bottom: 14px;
+        font-size: 12px;
+    }
+    #network-viz-main .legend-entry .circle {
+        width: 22px;
+        height: 22px;
+        top: calc(50% - 11px);
+    }
+}
+
+@media screen and (min-width: 650px) {
+    #projection-sidebar {
+        max-width: 400px;
+        width: 35%;
+    }
+    #network-viz-main #projection {
+        width: 70%;
+        margin-right: 2%;
+    }
+    #network-viz-main .legend-entry {
+        float: none;
+        width: 100%;
+        width: 5em;
+        padding-bottom: 1em;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #network-viz-main .legend-box {
+        margin-top: 40px;
+    }
+    #network-viz-main #projection {
+        height: 800px;
+        width: 75%;
+        max-width: 800px;
+        margin-right: 30px;
+    }
+}
+
+#network-viz-main .legend-entry .circle {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+#network-viz-main .legend-entry p {
+    margin-left: unset;
+    font-size: 12px !important;
+    text-align: center;
+}
+
+#network-viz-main .legend-box {
+    padding: unset !important;
+    padding-top: 10px !important;
+}
+
+#network-viz-main .legend-entry p {
+    width: 150px !important;
+}
+
+.legend-box::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.legend-box::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background-color: #F5F5F5;
+}
+
+.legend-box::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: rgba(85, 85, 85, 0.514);
+}
+
+path.link {
+    cursor: pointer;
+}
+
+#projection-sidebar {
+    text-align: center;
+    width: 100%;
+}
+
+#network-viz-main .legend-box-container {
+    margin: auto;
+    display: flex;
+}
+
+.explanation {
+    border: 1px #00000030 solid;
+    padding: 10px;
+    background: #8080801a;
+    font-size: 15px;
+}
+
+.tooltip.bs-tooltip-bottom{
+    bottom: 0px !important;
+    top: -5% !important;
+    height: fit-content;
+}
+
+.tooltip.bs-tooltip-bottom .arrow{
+	display:none !important;
+}

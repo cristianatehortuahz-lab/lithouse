@@ -1,0 +1,179 @@
+
+/* Individual Foaf person*/
+div#individual-foaf-person section#individual-intro section#header {
+    display: flex;
+    justify-content: space-around;
+}
+
+section#faculty-header {
+    width: 100%;
+    display: inline-block;
+}
+
+div#individual-tools-people {
+    /* width: 12%; */
+    /* position: relative; */
+    float: left;
+    display: contents;
+}
+
+section.share-contact {
+    display: grid;
+}
+
+section#individual-info {
+    /* position: relative; */
+    width: 100%;
+    float: left;
+    display: grid;
+    margin: 5px 5px 5px 5px;
+}
+
+section#individual-info header {
+    display: contents;
+}
+
+#individual-hasResearchArea {
+    list-style: none; 
+    padding: 0;      
+    margin: 0;    
+    display: flex; 
+    flex-wrap: wrap; 
+    align-items: center; 
+    gap: 0;   
+}
+
+ul#individual-hasResearchArea li {
+    padding: 0 0.5rem;
+}
+
+.individual-info-header {
+    display: inline-flex;
+    width: 100%;
+    background: red;
+}
+
+.header-section {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+#individual-tools-people img {
+  height: 100%;
+  vertical-align: middle;
+}
+
+
+
+/*  End Individual Foaf person*/
+
+section.rightMenuHome{
+    display: flex;
+    position: relative;
+    align-content:flex-end;
+}
+
+
+div.titleServices h1{
+    display: flex;
+    position: relative;
+    font-size: 25px;
+    width: auto;
+    padding: 1px 100px 1px 100px;
+    margin: 1px 50px 1px 50px;
+    font-weight: bold;
+}
+
+img#uriIcon,img#qrIcon {
+   cursor: pointer;
+   width: 30px !important;
+   margin: 0 auto;
+}
+
+/* --- Estilos para el Popover del QR --- */
+
+/* Es importante que el contenedor padre tenga posición relativa
+   para que el popover se posicione correctamente respecto a los iconos. */
+#individual-tools-people {
+  position: relative;
+}
+
+.list-group-item {
+    background-color: transparent !important;
+    border: none;
+}
+
+.contact-info {
+    padding: 0.5rem 0 !important;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    margin: 0.5rem 0 !important;
+}
+
+/* --- Estilos para la Fila de Visualizaciones --- */
+
+/* Contenedor principal que alinea los elementos horizontalmente */
+.visualization-flex-container {
+  display: flex;
+  justify-content: space-around; 
+  align-items: center; 
+  width: 100%;
+  padding: 15px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-top: 20px;
+}
+
+/* Estilos para cada uno de los bloques de visualización */
+.visualization-item a {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.visualization-item a:hover {
+  transform: scale(1.05); 
+  color: #0056b3; 
+}
+
+.visualization-item img {
+  width: 40px; 
+  height: 40px;
+  margin-bottom: 2px;
+}
+
+.visualization-item span {
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* visualizacion de estadisticas*/
+.publicationschar {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    border: solid 1px #555555;
+    background: #ffffff;
+    /* height: 80%; */
+    border-radius: 5px;
+}
+
+#sparklineHeading {
+  margin-top: 3px; 
+}
+
+span#sparklineHeading {
+    font-size: 0.7rem !important;
+    font-weight: normal !important
+}
+
+div#pubsChart img {
+    width: 180px !important;
+}

@@ -1,0 +1,406 @@
+h3.crai-titulo{
+    color: black;
+    font-size: 16px !important;
+}
+h3.block-footer-title.arrow-left-mobile.crai-titulo.ur-click{
+    color: black;
+}
+.wrap-main-footer.footer-line-1.back-crai {
+    background-image: linear-gradient(to bottom, #fff 100%, #fff 100%) !important;
+    padding: 0px 1px 0px 1px;
+}
+#block-calidad .block-footer-content.calidad.recua-crai {
+    border: 1px solid #000;
+}
+/* Certificaciones hover*/
+.certificacion-uno:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/certificacion-iso-2.png");
+   
+}
+.certificacion-dos:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/certificacion-iso-2.png");
+    
+}
+.certificacion-tres:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/certificacion-iso-2.png");
+    
+}
+.certificacion-cuatro:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/certificacion-iso-2.png");
+    
+}
+/* Políticas hover*/
+.politica-uno:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/politica-servicio-2.png");
+    
+}
+.politica-dos:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/Politica_datos_2.png");
+    
+}
+.politica-tres:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/politica-acceso-abierto-2.png");
+    
+}
+.politica-unoa:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/Politica_autoarchivo_2.png");
+    width: 100%;    
+}
+.politica-unob:hover{
+    content:url("https://urosario.edu.co/PortalUrosario/media/CRAI/pw-crai-2020/logos/Politica_creacion_repositorio_2.png");
+    width: 50%;
+}
+/*Plataformas hover*/
+.block-footer-content ul.nav a.nav-link.plata-crai:hover {
+    color: #2c507f!important;
+}
+/*Tamaño de columnas para los que son 3*/
+@media (min-width: 992px)
+{
+    .block-footer-column.tamaño-crai1 {
+        flex: 0 0 33%;
+        max-width: 33%;
+        padding-right: 60px;
+        padding-left: 60px;
+    }
+    .block-footer-column.tamaño-crai2 {
+        flex: 0 0 12.5%;
+        max-width: 12.5%;
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+    .hide-on-lg{
+        display: none !important;
+    }
+}
+
+/*****Cambios JFLF*****/
+
+/**Dataverse**/
+.dropdown-toggle::after{
+    display: revert !important;
+    margin-left: revert !important;
+    vertical-align: revert !important;
+    content: unset;
+    border-top: revert !important;
+    border-right: revert !important;
+    border-bottom: revert !important;
+    border-left: revert !important;
+}
+
+.sticky-top .dropdown-toggle::after, .header-top-wrap .dropdown-toggle::after, .wrap-mobile-menu .dropdown-toggle::after{
+    display: inline-block !important;
+    margin-left: 0.255em !important;
+    vertical-align: 0.255em !important;
+    content: "" !important;
+    border-top: 0.3em solid !important;
+    border-right: 0.3em solid transparent !important;
+    border-bottom: 0 !important;
+    border-left: 0.3em solid transparent !important;
+}
+
+
+html{
+    font-size: 14px;
+}
+
+#footer{
+    position: relative;
+}
+
+#footer .img-crai{
+    width:10em;
+    height:auto;
+}
+
+#footer .politica-dos.politicas{
+    width:17em;
+    min-width: 17em;
+    height: auto;
+}
+
+.back-crai .columns-footer{
+    justify-content: center;
+    justify-content: space-evenly;
+    align-items: end;
+}
+
+#block-calidad .block-footer-content.calidad.recua-crai{
+    border:unset;
+}
+
+.back-crai .block-footer-content.calidad.recua-crai .quality-logos{
+    display:block;
+}
+
+#dataverse-header-block{
+    /* padding-top: 12em; */
+    padding-top: unset;
+}
+.header-top-wrap{
+width: 100%;
+}
+
+.header-top-wrap .container-fluid{
+    display: block !important;
+}
+
+#navbarFixed{
+    padding: revert;
+}
+
+.sticky-top{
+    width:100%;
+}
+
+.mega-menu-row{
+    /* display:none !important; */
+}
+
+#topNavBar .navbar-nav{
+    display:block;
+    flex-direction: row;
+}
+
+#navbarFixed .dropdown-menu.navbar-search,.navbar-nav .dropdown-menu{
+    position: absolute !important;
+}
+
+body{
+    padding-top: 5em;
+}
+
+footer>*{
+    /* font-family: 'Nunito','sans-serif'; */
+}
+
+.block-enlaces-directos-crai{
+    display:flex !important;
+}
+.datos_sello{
+    margin:auto;
+    display: flex !important;
+    float:unset;
+}
+
+.datos_sello img{
+    max-width: 7em;
+    float: right;
+    margin: auto;
+    margin-top: -18px;
+}
+
+.crai-plataformas li a{
+    color:#5c5c5c!important;
+}
+
+.block-nuestros-programas-crai .block-footer-content{
+    display:flex;
+    margin: auto;
+}
+
+.block-nuestros-programas-crai{
+    display: flex;
+}
+
+.columns-footer .block-footer-content{
+    display: flex;
+}
+
+.columns-footer .block-footer-content.calidad{
+    display:block;
+}
+
+footer .contact-info{
+    text-align: left;
+    font-size: 20px;
+    width: auto;
+    color: white;
+}
+
+footer .container-fluid:after, footer .container-fluid:before{
+    display:flex;
+    content:revert !important;
+}
+
+@media (max-width: 991px){
+    .hide-on-sm{
+        display: none !important;
+    }
+
+    #navbarFixed .dropdown-menu.navbar-search,.navbar-nav .dropdown-menu{
+        position: static !important;
+        background:transparent !important;
+        width:100%;
+    }
+    #navbarFixed .form-inline .input-group{
+        width:100%;
+    }
+    
+}
+/**endDataverse**/
+
+/**VIVO**/
+footer{
+    padding:unset;
+}
+
+
+footer .block-footer-content ul.nav a.nav-link{
+    font-size:14px !important;
+}
+
+footer .crai-titulo{
+    text-align: end;
+}
+
+footer .wrap-footer-institutcional h3.block-footer-title.arrow-left-mobile, footer .wrap-footer-institutcional h3 {
+    color: white !important; 
+}
+
+footer .wrap-footer-institutcional h3 {
+    text-align: end;
+}
+
+footer .wrap-footer-institutcional h3.block-footer-title.arrow-left-mobile{
+    text-align: revert !important;
+}
+
+footer .twitter,footer .facebook,footer .youtube,footer .contactus{
+    background-color: revert;
+    width: auto; 
+    height: auto;
+    float: unset;
+    background-position: revert;
+    background-repeat: revert;
+    clear: both;
+    text-decoration: none;
+    color: revert;
+    border-radius: revert;
+    margin-top: revert;
+    margin-right: revert;
+    background-image: none;
+    font-size: 22px !important;
+}
+
+footer .twitter:hover,footer .facebook:hover,footer .youtube:hover,footer .contactus:hover{
+    background-position: revert;
+    background-color: revert !important;
+    color: revert !important;
+    width: revert;
+    transition: revert;
+    -webkit-transition: revert;
+    -o-transition: revert;
+    -moz-transition: revert;
+    -ms-transition: revert;
+    font-size: revert;
+    line-height: revert;
+    text-align: revert;
+    padding-top: revert;
+    text-decoration: revert;
+    padding-right: revert;
+    font-size: 22px !important;
+}
+
+footer .twitter a,footer .facebook a,footer .youtube a,footer .contactus a,footer .linkedin a,footer .instagram a{
+    font-size: 22px !important;
+}
+
+header .container-fluid:before, .container-fluid:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+
+header {
+    line-height: revert;
+}
+
+.suk{
+    width: 100%;
+    padding-right: revert;
+}
+
+nav.navbar{
+    width:100%;
+    background: #175683;
+    padding-left: 0px;
+    padding-right: 0px;
+    z-index: 100
+}
+
+div#navbarCollapse.show{
+     height:13em; 
+}
+
+div#navbarCollapse > div{
+    margin: auto;
+    /*margin-right: 1em;*/
+}
+
+nav.navbar ul li a{
+    color:white !important;
+    text-decoration: none !important;
+}
+.navbar-light .navbar-toggler{
+    border-color: rgb(166 162 162);
+}
+
+ul#header-nav{
+        float: unset; 
+        height: 30px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding-top: unset;
+        margin-right: unset;
+}
+
+#contenedor-nav{
+    width:100% !important;
+}
+
+.navbar-inverse ul li a.selected {
+    background-position: left !important    ;
+}
+.navbar-inverse ul li a{
+    padding-right: .5rem;
+    padding-left: .8rem;
+}
+
+ul li a{
+text-decoration: none !important;
+}
+.mn.scrolling{
+    /* margin-top: 5em; */
+    position: fixed;
+    top: 0px;
+    left: 0;
+    margin-left: 0;
+    right: 0;
+    /* background-image: url(/images/beta.png); */
+    background-repeat: no-repeat;
+    background-position: right;
+    z-index: 200;
+}
+
+.back-crai .columns-footer{
+    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#wrapper-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding:revert !important;
+}
+
+#wrapper-content .row, #wrapper-content #noJavascriptContainer, #wrapper-content #menupage-intro, #wrapper-content .search-results-header-box, #wrapper-content .contentsBrowseGroup, #wrapper-content #main-content, #wrapper-content .coauthor-header, #wrapper-content .coauthor-input-box, #wrapper-content #network-viz-main{
+    max-width: 1280px;
+    margin: auto;
+    padding-left: 20px;
+    width: 100%;
+}
+
+/**EndVIVO**/

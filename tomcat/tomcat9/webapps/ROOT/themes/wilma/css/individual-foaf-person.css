@@ -1,0 +1,587 @@
+/* === Estilos Generales para Persona (Foaf) === */
+
+
+a {
+    display: inline-block;
+}
+
+#individual-tools-people {
+    float: left;
+    position: relative;
+    /* necesario para popover QR */
+}
+
+span#qrCodeImage {
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate3d(-40%, 30%, 0px);
+    width: 200px;
+    top: 0px;
+    left: 0px;
+    border: solid 2px #ccc;
+    background: #fff;
+    overflow:visible;
+    z-index:1000;
+}
+
+span.export-qr-code{
+    display: flex;
+    font-size: 0.8rem !important;
+}
+
+.individual-objects li[role="listitem"] {
+    list-style: none !important;
+    line-height: 1.5rem !important;
+    padding-bottom: 1rem;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.subclass-property-list li div a{
+    width: auto;
+    max-width: 100px;
+}
+
+.property-list li h3{
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: lowercase;
+    padding-left: 10px;
+}
+.property-list li h3::first-letter{
+    text-transform: capitalize;
+}
+
+
+
+.individual-objects li[role="listitem"] a {
+    display: flex !important;
+}
+
+.individual-objects .subclass-property-list li[role="listitem"]:hover {
+    background: #fcfcfc;
+}
+
+
+#individual-foaf-person #individual-intro #header {
+    display: flex;
+    justify-content: space-around;
+}
+
+#faculty-header {
+    width: 100%;
+    display: inline-block;
+}
+
+
+#individual-tools-people img {
+    height: auto;
+    vertical-align: middle;
+}
+
+img.individual-photo {
+    width: 100% !important;
+    border-radius: 50% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.external-ids ul.identifiPerson {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.external-ids ul a img {
+    width: 40px !important;
+    height: auto !important;
+}
+
+#share-contact {
+    display: flex;
+    gap: 10px;
+    width: 95% !important;
+    margin: auto;
+    flex-direction: column;
+    padding: 1px;
+}
+
+#individual-info {
+    width: 100%;
+    float: left;
+    display: grid;
+    margin: 5px;
+}
+
+
+section#admin {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem !important;
+    line-height: 0.5rem !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+
+#individual-info section#verbose-mode {
+    margin-top: 0px !important;
+    display: block !important;
+}
+
+#individual-info header {
+    display: contents;
+}
+
+#individual-hasResearchArea {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+    line-height: 2;
+}
+
+#individual-hasResearchArea li {
+    padding: 0 0.5rem;
+    margin-right: 0px !important;
+}
+
+.individual-info-header {
+    display: inline-flex;
+    width: 100%;
+    background: red;
+}
+
+.header-section {
+    text-align: right;
+}
+
+/* === Iconos QR / URI === */
+
+#uriIcon,
+#qrIcon {
+    cursor: pointer;
+    width: 30px !important;
+    margin: 0 auto;
+}
+
+/* === Contacto === */
+
+.list-group-item {
+    background-color: transparent !important;
+    border: none;
+}
+
+.contact-info {
+    padding: 1px 0 1px 0;
+    /* background-color: #f9f9f9; */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 105%;
+    margin: 0.5rem 0 !important;
+    display: flex;
+    flex-direction: column;
+}
+
+ul.individual-emails {
+    clear: both;
+    padding-left: 0;
+    list-style: circle outside url(../../images/emailIconSmall.gif);
+    margin-left: 1px;
+}
+
+.emailsContainer ul li.list-group-item{
+    display: flex;
+    flex-direction: row;
+    margin: 7px 1px 1px 6px;
+}
+
+.emailsContainer ul li.list-group-item a{
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+ul#individual-phone {
+    margin: 1px;
+    padding: 1px;
+}
+
+ul#individual-phone li::before {
+    content: "";
+    display: inline-block;
+    background-image: url(../images/logos/iconoPhone.png);
+    background-size: 14px 24px;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 23px;
+    vertical-align: middle;
+    margin: 1px 1px 1px 4px;
+}
+
+ul#individual-phone li span{
+    font-size: 14px;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+ul#individual-phone li {
+    display: flex;
+    flex-direction: row;
+}
+
+/* === Visualizaciones === */
+
+.visualization-flex-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-top: 20px;
+}
+
+.visualization-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.2s ease;
+}
+
+.visualization-item a:hover {
+    transform: scale(1.05);
+    color: #0056b3;
+}
+
+.visualization-item img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 2px;
+}
+
+.visualization-item span {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/*  Positions */
+ul#individual-personInPosition,
+ul#individual-hasResearchArea {
+    font-size: 14px !important;
+}
+
+
+
+h3#hasResearchArea,
+ul#individual-hasResearchArea li a {
+    text-transform: lowercase;
+    font-size: 14px;
+    color: #2274bc;
+
+}
+
+ul#individual-hasResearchArea li a:hover {
+    color: #0e304e;
+}
+
+h3#hasResearchArea::first-letter,
+ul#individual-hasResearchArea li a::first-letter {
+    text-transform: uppercase !important;
+}
+
+
+
+
+
+
+/* === Estadísticas de Publicaciones === */
+
+.publicationschar {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    border: 1px solid #555;
+    background: #fff;
+    border-radius: 5px;
+}
+
+#sparklineHeading {
+    margin-top: 3px;
+    font-size: 0.7rem !important;
+    font-weight: normal !important;
+}
+
+#pubsChart img {
+    width: 180px !important;
+}
+
+/* === Otros === */
+
+.rightMenuHome {
+    display: flex;
+    position: relative;
+    align-content: flex-end;
+}
+
+.titleServices h1 {
+    display: flex;
+    position: relative;
+    font-size: 25px;
+    width: auto;
+    padding: 1px 100px;
+    margin: 1px 50px;
+    font-weight: bold;
+}
+
+/* publicaciones */
+.authorship_aditional {
+    display: flex;
+    gap: 2rem;
+    padding-top: 0.5rem;
+}
+
+#individual-info h1.foaf-person span.fn{
+    color: #5E6363;
+    font-size: 35px;
+    font-weight: bold;
+    text-transform: math-auto;  
+}
+
+#individual-info h3#hasResearchArea{
+    clear: left;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    margin: 1px 1px 1px 1px;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: lowercase;
+    color: #595b5b;
+}
+
+ul#individual-personInPosition li{
+    padding-bottom: 15px;
+    font-size: 14px;
+}
+
+ul#individual-personInPosition li span{
+    font-weight: 600;
+}
+
+ul#individual-personInPosition li span:hover{
+    color:#0e304e;
+}
+
+/* section#share-contact section#concat{
+    display: flex;
+    align-content: flex-start;
+    flex-direction: column;
+    float: left;
+} */
+
+
+/* ===========================
+   PERSONA - PERFIL INDIVIDUAL
+   =========================== */
+
+/* Contenedor principal */
+#person-info {
+    margin: 2rem 0;
+    background-color: rgb(25 3 86 / 5%); /* Fondo suave */
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    padding: 0;
+    margin-bottom: 20px !important;
+}
+
+/* COLUMNA IZQUIERDA: Foto + Contacto */
+#individual-intro {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 0px;
+}
+
+#photo-custom-person-wrapper {
+    margin: 0 auto 1rem auto;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    background-color: #fff;
+}
+
+#photo-custom-person-wrapper img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+#share-contact a {
+    display: block;
+    /* margin-bottom: 0.5rem; */
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.dropdown-toggle {
+    background: #da0921 !important
+}
+
+.dropdown{
+    /* margin: 1px 1px 20px 1px ; */
+}
+
+/* ul.dropdown-menu.show {
+    right: 0px !important;
+    width: 4px;
+    transform: translate3d(53px, 35px, 0px) !important;
+    border-radius: 12px;
+    text-align: center;
+    height: 40px;
+    font-size: 14px;
+    background: #fff !important;
+} */
+
+#share-contact a:hover {
+    text-decoration: underline;
+}
+
+/* =====================
+   COLUMNA DERECHA
+   ===================== */
+#individual-info {
+    padding: 1rem 2rem;
+}
+
+/* Títulos principales */
+#individual-info h1,
+#individual-info h2 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+#individual-info h1.foaf-person {
+    font-size: 1.8rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+}
+
+/* Subtítulos */
+#individual-info h2 {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+    color: #444;
+}
+
+/* Links de navegación */
+#individual-info p a {
+    font-size: 0.9rem;
+    color: #0073aa;
+    text-decoration: none;
+}
+#individual-info p a:hover {
+    text-decoration: underline;
+}
+
+/* Header con herramientas */
+.header-section {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+#individual-tools-people img {
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+/* Posiciones, Áreas de investigación, etc. */
+#individual-info section {
+    margin-top: 1.2rem;
+    padding: 1rem;
+    /* background-color: #fff; */
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 959px) {
+    section.header-section {
+        flex-direction: column;
+    }
+    
+}
+
+
+/* Código QR desplegable */
+#qrCodeImage {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+#qrCodeImage.hidden {
+    display: none;
+}
+
+/* =====================
+   BLOQUE "OTHER"
+   ===================== */
+.row[style*="background-color: #FFF"] {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+}
+
+
+ul.nav-pills .nav-link {
+    font-size: 14px;
+    padding: 5px 5px;
+}
+
+.dropdown-menu {
+    
+}
+
+.panel-heading h3{
+    background: none !important;
+    font-size: 14px !important;
+    color: #000000a3 !important;
+    padding: 10px 0 10px 2px !important;
+    margin: 0 !important;
+    text-transform: capitalize;
+    border-bottom: 1px solid #dfe6e5;
+    font-weight: 600;
+}
+
+
+/* ========Codigos QR============= */
+/* span#iconControlsLeftSide{
+    position: absolute;
+    float: right;
+} */
+
+
+span.row-title {
+    padding: 0;
+    margin-bottom: 0.5rem;
+}
+
+.row_footer.d-flex {
+    gap: 2rem;
+}

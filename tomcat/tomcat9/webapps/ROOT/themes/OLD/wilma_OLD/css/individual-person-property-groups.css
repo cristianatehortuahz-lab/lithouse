@@ -1,0 +1,226 @@
+/* ul#individualNavTabs {
+    display: grid;
+}
+
+.individual-profile-tabs-layout {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: #FFF !important;
+} */
+#photo-custom-person-wrapper img.individual-photo {
+    border: 5px solid #ebebeb;
+    /* margin: 1px 10px 1px 3%;
+    width: 80%; */
+    border-radius: 50%;
+}
+.edit-mainImage a {
+    border-radius: unset !important;
+    width: auto !important;
+}
+
+/* .external-ids, .emailsContainer, .phoneContainer {
+    margin: 0 auto;
+} */
+
+#modern-button {
+    color: rgb(85, 85, 85);
+    cursor: default;
+    background-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(221, 221, 221) rgb(221, 221, 221) transparent;
+    border-image: initial;
+}
+
+#modern-button:hover{
+    font-weight: bold;
+    color: #337ab7;
+}
+
+
+ul.nav.nav-pills.nav-stacked > li.active >a {
+    font-weight: bold;
+    color: #337ab7;
+}
+
+.nav {
+    display: block;
+}
+
+div.row.individual-objects div {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+/* Para ajustar el espaciado entre los elementos de la lista */
+.nav-pills.nav-stacked > li {
+    margin-bottom: 5px; /* Espacio entre cada "botón" */
+}
+
+
+article.property ul {
+    padding: 0 1rem;
+}
+
+article.property h3 {
+    background: #fafaf9 !important;
+    font-size: 1.063em !important;
+    color: #333333 !important;
+    border-left:1rem solid #7a1919 !important;
+    padding: 0 0 0 1rem !important;
+    margin: 0 0 10px 0 !important;
+    font-weight: 600;
+    border-bottom: 1px solid #6e6e6e;
+}
+
+li.subclass > h3 {
+    border-left: none !important;
+    padding-left: 0 !important;
+    border-bottom: none !important;
+}
+
+ul#individual-personInPosition {
+    font-size: 15px;
+    list-style: none !important;
+}
+
+/* Styles for publications list */
+.publication-list {
+    list-style: none; /* Quita los puntos de lista predeterminados */
+    padding: 0;
+    margin-top: 20px;
+}
+
+.publication-item {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #e0e0e0; /* Borde sutil */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); /* Sombra suave */
+}
+
+.publication-title {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.15em;
+    font-weight: 600; /* Ligeramente más negrita */
+    color: #0056b3; /* Un azul típico de enlaces */
+}
+
+.publication-title a {
+    text-decoration: none; /* Quita el subrayado predeterminado */
+    color: inherit; /* Hereda el color del padre */
+}
+
+.publication-title a:hover {
+    text-decoration: underline; /* Subraya al pasar el ratón */
+}
+
+.publication-details p {
+    margin-bottom: 3px;
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: #555;
+}
+
+.publication-authors {
+    font-style: italic;
+    color: #666;
+}
+
+.publication-doi, .publication-url {
+    font-size: 0.85em;
+}
+
+.publication-doi a, .publication-url a {
+    color: #007bff; /* Azul de enlace Bootstrap */
+    text-decoration: none;
+}
+
+.publication-doi a:hover, .publication-url a:hover {
+    text-decoration: underline;
+}
+
+.publication-actions {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.publication-actions .btn {
+    margin-left: 8px;
+}
+
+#relatedBy-Authorship-List{
+    padding: 0 1rem;
+}
+
+#relatedBy-Authorship-List h3 {
+    font-size: 1.15em;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#relatedBy-Authorship-List h3 ul#relatedBy-Authorship-List h3 li {
+    text-align: justify;
+}
+
+#relatedBy-Authorship-List {
+    padding: 0 1rem !important;
+}
+
+li.subclass::marker {
+    display:none;
+}
+
+div.tab-content li {
+    list-style: none;
+    padding: 0 1rem !important;
+}
+
+div.panel-heading>h3.panel-title {
+    margin: 0 0 0 1rem !important;
+    padding: 0 !important;
+    font-size: 1.063em !important;
+    font-weight: 600 !important;
+}
+
+div#RO_0000053-PrincipalInvestigatorRole-List li, 
+div#RO_0000053-CoPrincipalInvestigatorRole-List li,
+div#TutorOf-Thesis-List li,
+div#relatedBy-Authorship-List ul.subclass-property-list li {
+    display: block;
+    padding: 0 0.5rem 1rem 1rem !important; 
+}
+
+div#RO_0000053-PrincipalInvestigatorRole-List li:hover, 
+div#RO_0000053-CoPrincipalInvestigatorRole-List li:hover, 
+div#TutorOf-Thesis-List li:hover,
+div#relatedBy-Authorship-List ul.subclass-property-list li:hover {
+    background: #fcfcfc;
+}
+
+div#RO_0000053-PrincipalInvestigatorRole-List li a,
+div#RO_0000053-CoPrincipalInvestigatorRole-List li a,
+div#TutorOf-Thesis-List li a,
+div#relatedBy-Authorship-List ul.subclass-property-list li a {
+    display: block;
+    text-align: justify;
+    word-wrap: break-word;
+}
+
+div#RO_0000053-PrincipalInvestigatorRole-List li span,
+div#RO_0000053-CoPrincipalInvestigatorRole-List li span, 
+div#TutorOf-Thesis-List li span,
+div#relatedBy-Authorship-List ul.subclass-property-list li span {
+   margin-bottom: 1rem !important;
+}
+
+/*Visualizaciones*/
+.visualizationContainer {
+    display: flex;
+    align-content: space-around !important;
+}

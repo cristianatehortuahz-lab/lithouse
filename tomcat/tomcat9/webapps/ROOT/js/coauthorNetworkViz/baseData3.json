@@ -1,0 +1,50 @@
+{
+  "nodesInternal": [
+   {
+      "pubs": 82,
+      "name": "Monsalve Carmona, Diana Marcela",
+      "id": "diana-marcela-monsalve-carmona",
+      "label": "Monsalve Carmona, Diana Marcela",
+      "group": "Escuela de Medicina y Ciencias de la Salud"
+    },
+     {
+      "pubs": 38,
+      "name": "Rodríguez Jiménez, Mónica María del Pilar",
+      "id": "monica-maria-del-pilar-rodriguez-jimenez",
+      "label": "Rodríguez Jiménez, Mónica María del Pilar",
+      "group": "Escuela de Medicina y Ciencias de la Salud"
+    }
+  ],
+  "edgesAll": [
+    {
+      "jointPubs": 25,
+      "id": "diana-marcela-monsalve-carmona:monica-maria-del-pilar-rodriguez-jimenez",
+      "source": "diana-marcela-monsalve-carmona",
+      "target": "monica-maria-del-pilar-rodriguez-jimenez"
+    }
+  ],
+   "edgesInternal": [
+    {
+      "jointPubs": 25,
+      "id": "diana-marcela-monsalve-carmona:monica-maria-del-pilar-rodriguez-jimenez",
+      "source": "diana-marcela-monsalve-carmona",
+      "target": "monica-maria-del-pilar-rodriguez-jimenez"
+    }
+   ],
+  "nodesAll": [
+   {
+      "pubs": 82,
+      "name": "Monsalve Carmona, Diana Marcela",
+      "id": "diana-marcela-monsalve-carmona",
+      "label": "Monsalve Carmona, Diana Marcela",
+      "group": "Escuela de Medicina y Ciencias de la Salud"
+    },
+     {
+      "pubs": 38,
+      "name": "Rodríguez Jiménez, Mónica María del Pilar",
+      "id": "monica-maria-del-pilar-rodriguez-jimenez",
+      "label": "Rodríguez Jiménez, Mónica María del Pilar",
+      "group": "Escuela de Medicina y Ciencias de la Salud"
+    }
+  ]
+}

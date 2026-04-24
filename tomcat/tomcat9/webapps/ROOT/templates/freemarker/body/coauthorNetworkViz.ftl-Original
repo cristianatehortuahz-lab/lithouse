@@ -1,0 +1,105 @@
+<div class="coauthor-header">
+    <div class="coauthor-title-container">
+        <h1 class='copubs-h coauthor-title'>Mapa de coautoría</h1>
+        <!-- Button trigger modal -->
+    </div>
+    <!-- Modal -->
+    <div class="modal fade coauthor-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><strong>Mapa de coautoría</strong></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> El mapa de coautorías del HUB UR ilustra la relación que nuestros investigadores tienen a nivel de coautorías.</p>
+                    <p>Diseño funcional:</p>
+
+                    <ul class="design-coauthor">
+                        <li> En la vista principal, se muestran los investigadores con coautorías internas en la Universidad del Rosario (es decir, coautorías entre investigadores UR).</li>
+                        <li> Los números asignados a cada nodo, corresponden a la cantidad de coautorías que tiene el autor (entre más coautorías tenga un autor más grande será su nodo).
+                        </li>
+                        <li> El grosor de las líneas que conectan a los nodos es definido por la cantidad de documentos en coautorías que ambos investigadores tengan entre sí.</li>
+                        <li> Al hacer clic sobre una línea de relación, se mostrará un listado con las coautorías entre los investigadores conectados por dicha línea.</li>
+                        <li> Se puede acceder al mapa detallado de un investigador, buscándolo con el cuadro de búsqueda por su nombre o haciendo clic directamente en su nodo correspondiente.</li>
+                        <li> El usuario puede elegir entre ver el gráfico detallado del investigador seleccionado con los coautores internos de la UR o si desea agregar a todos los coautores (internos y externos a la universidad) haciendo clic en la casilla
+                            "Yes" de la opción "Include external profiles".</li>
+                        <li>Para volver a la vista principal, es necesario hacer clic sobre la "X" que se encuentra al lado del nombre sobre la casilla "Include external profiles".</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="coauthor-input-box d-flex">
+    
+        <button type="button" class="btn btn-danger coauthor-modal-button" data-bs-toggle="modal" data-target="#exampleModal">
+            ?
+        </button>
+    <div class="col-sm-12 col-md-12 search-bar">
+        <input type="text" id='autoComplete' />
+    </div>
+</div>
+
+<div id='network-viz-main'>
+    <div id="explanation" class="explanation">Esta herramienta ilustra la relación de los investigadores de la Universidad del Rosario tienen a nivel de coautorías.</div>
+    <div id="node-graph-filters" class="search-box hide col-sm-12 col-md-12">
+        <div class="reset-container">
+            <div class="reset-option">
+                <p>Include external profiles</p>
+            </div>
+            <div class="reset-inputs">
+                <label>
+                    <input id='show-internal-nodes' name='data-used'
+                        type="radio"
+                        value="intNetwork" checked>
+                    No
+                </label>
+
+                <label for="show-all-nodes">
+                    <input id='show-all-nodes' name='data-used' type="radio"
+                        value="allNetwork">
+                    Yes
+                </label>
+            </div>
+        </div>
+        <div class="reset-container-message">El número de coautorías está basado en los perfiles internos y externos a la universidad. </div>
+    </div>
+
+    <div id='projection'>
+        <div class='network-graph-box' id="network-graph-box">
+            <svg id='prof-graph' class='network-graph' height=0 width=0></svg>
+        </div>
+
+        <div class='detail-network-graph-box hide'>
+            <svg id='prof-detail-graph' class='detail-graph'></svg>
+        </div>
+    </div>
+
+    <div id='projection-sidebar'>
+        <div class="legend-box-container">
+            <div class="legend-box"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+${scripts.add( '
+<script src="https://d3js.org/d3.v5.min.js"></script>', '
+<script type="text/javascript" id="coauthor-network-viz-script" src="${urls.base}/js/coauthorNetworkViz/main.js" data-urlsBase="${urls.base}" data-serviceURL="${urls.base}/js/coauthorNetworkViz/baseData.json" data-sampleCoPubsServiceURL="${urls.base}/ur/coauthorViz/sampleCopubs/"></script>', '
+<script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>' )} ${stylesheets.add( '
+<link rel="stylesheet" href="${urls.base}/css/coauthorNetworkViz/main.css" />', '
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">', '
+<link rel="stylesheet" href="${urls.base}/css/coauthorNetworkViz/autocomplete.css" />' )}

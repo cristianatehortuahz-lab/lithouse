@@ -1,0 +1,106 @@
+ div.individual{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #00000033;
+    border-radius: 20px;
+    padding: 1px 1px 1px 10px;
+    margin: 5px 1px 5px 1px;
+    bottom: 20px;
+    justify-content: center;
+
+}
+
+ul.searchhits-Lab  div.individual{
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #00000033;
+    border-radius: 20px;
+    padding: 1px 1px 1px 1px;
+    margin: 5px 1px 5px 1px;
+    bottom: 20px;
+    justify-content: center;
+
+}
+
+div.org-img{
+    position: relative;
+    width: 20%;
+    height: auto;
+    padding: 5px;
+    margin: auto;
+}
+
+div.org-img img{
+    width: 175px !important;
+    height: auto !important;
+    margin: 2px 2px 2px 2px;
+}
+
+div.org-desc{
+    width: 100%;
+    height: auto;
+    display: inline;
+    padding: 0 10px;
+    text-align: justify;
+}
+
+div.org-desc h1 a{
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.advancedSearchForm .form-button, .searchhits li {
+    padding: 0;
+    padding-bottom: unset;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+div#programIndividual h1 a {
+    font-size: 1.3rem !important;
+}
+
+
+div#programDescription{
+    
+    padding: 1px 1px 1px 10px;
+}
+
+ul.js-search-hits{
+    padding-left: 0px;
+}
+
+.person-body {
+    flex-direction: column;
+}
+
+h1.shortview_person-name a, div.person-body span.title a {
+    color: #595b5b;
+}
+
+h1.shortview_person-name a{
+    text-transform: capitalize !important;
+    font-weight: 600 !important;
+}
+
+h1.shortview_person-name a:hover, div.person-body span.title a:hover,a.title-smaller.blue-text.shortview_person-research-area:hover, div#programIndividual h1 a:hover {
+    color: #04bfad !important;
+}
+
+a.title.title-smaller.blue-text {
+    font-size: smaller;
+}
+
+a.title-smaller.blue-text.shortview_person-research-area {
+    font-size: small;
+    padding-left: 0.1rem;
+    color: #7288a1;
+}
+
+.js-all-inputs-box {
+    display: flex;
+    flex-direction: column;
+}
+
+

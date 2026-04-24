@@ -1,0 +1,31 @@
+ div.individual{
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+div.org-img{
+    position: relative;
+    width: 20%;
+    height: auto;
+    padding: 1px 1px 10px 1px;
+}
+
+div.org-img img{
+    width: 175px !important;
+    height: 175px !important;
+    margin-left: 16px;
+    border-radius: 2%;
+    position: relative;
+}
+
+div.org-desc{
+    width: 80%;
+    height: auto;
+    padding: 1px 1px 1px 1px;
+}
+
+div.org-desc h1 a{
+    font-size: 30px;
+    font-weight: 500;
+}

@@ -1,0 +1,128 @@
+div.tabLab{
+    display: block;
+    position: relative;
+    float: left;
+    padding-left: 40px;
+    font-size: 20px;
+    font-weight: 800;
+    width: 100%;
+
+}
+
+select#programList{
+    display: block;
+    position: relative;
+    padding: 6px 6px 6px 6px;
+    font-size: 20px;
+    margin-left: 30px;
+    
+}
+select#programList option.listProgram{
+    text-align: left;
+    font-size: 20px;
+
+}
+
+ul.row{
+    width: 100%;
+    padding: 0px 0px 0px 0px;
+    left: 0%;
+}
+
+p.card-summary {
+    display: -webkit-box;
+    color: #000000;
+    font-size: 14px;
+    padding: 10px 0px 0px 0px;
+    -webkit-line-clamp: 4; /* Limita a 4 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: justify !important;
+ 
+}
+
+h5.card-title a{
+    font-size: 20px;
+    white-space: normal !important;
+    height: 40px ;
+    display: block;
+    font-weight: bold;
+    color: #2485ae;
+}
+
+div.card{
+    padding: 1px 10px 1px 10px;
+    border: none;
+    background: none;
+    margin: 20px 0px 10px 0px;
+    width: 95% !important;
+    border: groove;
+}
+
+.card-img-top {
+    width: 100% !important;
+    height: 250px;
+    margin: 1% 1% 1% 1%;
+}
+h5.card-program{
+    font-size: 12px;
+    position: relative;
+    text-align: end;
+}
+
+button.card-buttonAgendar{
+    position: relative;
+    display: block;
+    background-color: #2485ae;
+    font-size: 26px;
+    height: 30px;
+    width: 70%;
+    text-align: center;
+    margin: 10px 10px 10px 58px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px 2px rgb(0, 0, 0);
+    color: #000000;
+    font-weight: bold;
+}
+
+button.card-buttonAgendar a{
+    position: relative;
+    display: block;
+    font-size: 26px;
+    color: #000000;
+    font-weight: 600;
+}
+
+div.programList{
+    display: inline-block;
+    position: relative;
+    text-align: justify;
+    width: 80%;
+    margin: 10px 10px 10px 160px;
+}
+
+ul.programList li{
+    border: outset;
+    margin: 0px;
+    padding: 0px;
+    font-size: 12px;
+    font-weight: bolder;
+    width: auto;
+    text-align: center;
+}
+
+ul.programList{
+    display: inline-flex;
+    margin: 0px;
+    padding: 0px 50px 0px 50px;
+    position: relative;
+    width: 100%;
+}
+
+h3.titleFilter{
+    position: relative;
+    display: block;
+    margin: 10px 10px 10px 10px;
+    padding-left: 25px;
+    font-weight: 700
+}

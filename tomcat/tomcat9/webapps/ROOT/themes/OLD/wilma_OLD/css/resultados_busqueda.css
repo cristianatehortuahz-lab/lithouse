@@ -1,0 +1,14 @@
+
+div.shortview_person>a>img {
+    width: 170px;
+    border-radius: 10px;
+}
+
+.shortview_person {
+    display: flex;
+}
+
+.shortview_person {
+    margin-top: 1em !important;
+}
+
